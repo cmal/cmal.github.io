@@ -65,6 +65,100 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-emacs/fboundp" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2016/11/07/emacs/fboundp/" class="article-date">
+  <time datetime="2016-11-07T15:25:00.000Z" itemprop="datePublished">2016-11-07</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/emacs/">emacs</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/11/07/emacs/fboundp/">Use ~fboundp~ to check whether a symbol bound to a function</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        
+
+<script>
+  function editAtGithub(isRaw){
+    var url_parts = document.location.pathname.split('/');
+    var postname = url_parts[url_parts.length - 2];
+    if(url_parts.length == 3){ // is a page(wiki about etc)
+      postname = postname + '/index.org';
+    }else{
+      postname = '_posts/' + postname + '.org';
+    }
+    var url = 'https://github.com/cmal/learning_clojure/tree/source/source/' + postname;
+    if(isRaw)
+      url = 'https://raw.githubusercontent.com/cmal/learning_clojure/source/source/' + postname;
+    window.open(url);
+  }
+</script>
+
+<div id="outline-container-sec-1" class="outline-2">
+<h2 id="sec-1">Bind function body to a symbol</h2>
+<div class="outline-text-2" id="text-1">
+<p>
+The <code>defun</code> in Emacs will bind a symbol to a function body, whereas
+the <code>fmakeunbound</code> will unbind a symbol from the bound function body.
+</p>
+
+<p>
+The <code>foundp</code> checks whether a symbol has already bound
+to a function.
+</p>
+
+<p>
+Look at the example below:
+</p>
+<div class="org-src-container">
+
+<figure class="highlight"><table><tr><td class="code"><pre><span class="line">(defun foo (x) x)
+;; =&gt; foo
+(fboundp &apos;foo)
+;; =&gt; t
+(foo 1)
+;; =&gt; 1
+(fmakunbound &apos;foo) ;; fmakunbound will unbound a symbol
+;; =&gt; foo
+(fboundp &apos;foo)
+;; =&gt; nil
+(foo 1) ;; error</span><br></pre></td></tr></table></figure>
+</div>
+</div>
+</div>
+
+<div style="font-size: 14px;padding: 5px;line-height: 20px;border: 1px solid;"><a href="javascript: editAtGithub();" target="_blank" rel="external">Edit Me at Github</a> - <a href="javascript: editAtGithub(true)" target="_blank" rel="external">Org Source</a> - Last Updated 2016-11-16 &#x4E09; 10:15.<br>Render by <a href="https://github.com/CodeFalling/hexo-renderer-org" target="_blank" rel="external">hexo-renderer-org</a> with <a href="http://www.gnu.org/software/emacs/" target="_blank" rel="external">Emacs</a> 25.1.1 (<a href="http://orgmode.org" target="_blank" rel="external">Org</a> mode 8.2.10)</div>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://cmal.github.io/2016/11/07/emacs/fboundp/" data-id="ciw1l23at000478s6zyi9j9tv" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Emacs/">Emacs</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-emacs/closure" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2016/11/07/emacs/closure/" class="article-date">
@@ -155,7 +249,7 @@ line of `.el` files to force a lexical-binding context. e.g.
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://cmal.github.io/2016/11/07/emacs/closure/" data-id="civ88kopk00003s4f9l777kmf" class="article-share-link">Share</a>
+      <a data-url="http://cmal.github.io/2016/11/07/emacs/closure/" data-id="ciw1l23av000578s6hjcnad84" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Emacs/">Emacs</a></li></ul>
@@ -167,103 +261,9 @@ line of `.el` files to force a lexical-binding context. e.g.
 
 
   
-    <article id="post-emacs/fboundp" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-clojure/lambda-vs-literal-fn" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/2016/11/07/emacs/fboundp/" class="article-date">
-  <time datetime="2016-11-07T15:25:00.000Z" itemprop="datePublished">2016-11-07</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/emacs/">emacs</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/11/07/emacs/fboundp/">Use ~fboundp~ to check whether a symbol bound to a function</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        
-
-<script>
-  function editAtGithub(isRaw){
-    var url_parts = document.location.pathname.split('/');
-    var postname = url_parts[url_parts.length - 2];
-    if(url_parts.length == 3){ // is a page(wiki about etc)
-      postname = postname + '/index.org';
-    }else{
-      postname = '_posts/' + postname + '.org';
-    }
-    var url = 'https://github.com/cmal/learning_clojure/tree/source/source/' + postname;
-    if(isRaw)
-      url = 'https://raw.githubusercontent.com/cmal/learning_clojure/source/source/' + postname;
-    window.open(url);
-  }
-</script>
-
-<div id="outline-container-sec-1" class="outline-2">
-<h2 id="sec-1">Bind function body to a symbol</h2>
-<div class="outline-text-2" id="text-1">
-<p>
-The <code>defun</code> in Emacs will bind a symbol to a function body, whereas
-the <code>fmakeunbound</code> will unbind a symbol from the bound function body.
-</p>
-
-<p>
-The <code>foundp</code> checks whether a symbol has already bound
-to a function.
-</p>
-
-<p>
-Look at the example below:
-</p>
-<div class="org-src-container">
-
-<figure class="highlight"><table><tr><td class="code"><pre><span class="line">(defun foo (x) x)
-;; =&gt; foo
-(fboundp &apos;foo)
-;; =&gt; t
-(foo 1)
-;; =&gt; 1
-(fmakunbound &apos;foo) ;; fmakunbound will unbound a symbol
-;; =&gt; foo
-(fboundp &apos;foo)
-;; =&gt; nil
-(foo 1) ;; error</span><br></pre></td></tr></table></figure>
-</div>
-</div>
-</div>
-
-<div style="font-size: 14px;padding: 5px;line-height: 20px;border: 1px solid;"><a href="javascript: editAtGithub();" target="_blank" rel="external">Edit Me at Github</a> - <a href="javascript: editAtGithub(true)" target="_blank" rel="external">Org Source</a> - Last Updated 2016-11-07 &#x4E00; 23:43.<br>Render by <a href="https://github.com/CodeFalling/hexo-renderer-org" target="_blank" rel="external">hexo-renderer-org</a> with <a href="http://www.gnu.org/software/emacs/" target="_blank" rel="external">Emacs</a> 25.1.1 (<a href="http://orgmode.org" target="_blank" rel="external">Org</a> mode 8.2.10)</div>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://cmal.github.io/2016/11/07/emacs/fboundp/" data-id="civ88kops00013s4ff9pqs2jw" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Emacs/">Emacs</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-lambda-vs-literal-fn" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2016/11/06/lambda-vs-literal-fn/" class="article-date">
+    <a href="/2016/11/06/clojure/lambda-vs-literal-fn/" class="article-date">
   <time datetime="2016-11-06T15:00:00.000Z" itemprop="datePublished">2016-11-06</time>
 </a>
     
@@ -279,7 +279,7 @@ Look at the example below:
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2016/11/06/lambda-vs-literal-fn/">Differences Between Lambda functions and literal functions</a>
+      <a class="article-title" href="/2016/11/06/clojure/lambda-vs-literal-fn/">Differences Between Lambda functions and literal functions</a>
     </h1>
   
 
@@ -326,13 +326,13 @@ So <code>read-string</code> can be applied to literal functions.
 </ol>
         
           <p class="article-more-link">
-            <a href="/2016/11/06/lambda-vs-literal-fn/#more">Read More</a>
+            <a href="/2016/11/06/clojure/lambda-vs-literal-fn/#more">Read More</a>
           </p>
         
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://cmal.github.io/2016/11/06/lambda-vs-literal-fn/" data-id="civ7f9ldg0003r1kzbq51ru5f" class="article-share-link">Share</a>
+      <a data-url="http://cmal.github.io/2016/11/06/clojure/lambda-vs-literal-fn/" data-id="ciw1l23aq000278s6e239snkc" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ClojureBasics/">ClojureBasics</a></li></ul>
@@ -344,9 +344,9 @@ So <code>read-string</code> can be applied to literal functions.
 
 
   
-    <article id="post-destructuring-assignment" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-clojure/destructuring-assignment" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/2016/11/06/destructuring-assignment/" class="article-date">
+    <a href="/2016/11/06/clojure/destructuring-assignment/" class="article-date">
   <time datetime="2016-11-06T14:00:00.000Z" itemprop="datePublished">2016-11-06</time>
 </a>
     
@@ -362,7 +362,7 @@ So <code>read-string</code> can be applied to literal functions.
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2016/11/06/destructuring-assignment/">Clojure Destructuring Assignment</a>
+      <a class="article-title" href="/2016/11/06/clojure/destructuring-assignment/">Clojure Destructuring Assignment</a>
     </h1>
   
 
@@ -403,13 +403,13 @@ A simple example of Clojure&apos;s <code>let</code> assignment:
 <div class="outline-text-3" id="text-1-1">
         
           <p class="article-more-link">
-            <a href="/2016/11/06/destructuring-assignment/#more">Read More</a>
+            <a href="/2016/11/06/clojure/destructuring-assignment/#more">Read More</a>
           </p>
         
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://cmal.github.io/2016/11/06/destructuring-assignment/" data-id="civ7f9lct0001r1kz8xpu4jck" class="article-share-link">Share</a>
+      <a data-url="http://cmal.github.io/2016/11/06/clojure/destructuring-assignment/" data-id="ciw1l23as000378s66mlskvsm" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ClojureBasics/">ClojureBasics</a></li></ul>
@@ -472,19 +472,19 @@ A simple example of Clojure&apos;s <code>let</code> assignment:
       <ul>
         
           <li>
-            <a href="/2016/11/07/emacs/closure/">Closure in Elisp, Lexical Binding After Emacs 24.1</a>
-          </li>
-        
-          <li>
             <a href="/2016/11/07/emacs/fboundp/">Use ~fboundp~ to check whether a symbol bound to a function</a>
           </li>
         
           <li>
-            <a href="/2016/11/06/lambda-vs-literal-fn/">Differences Between Lambda functions and literal functions</a>
+            <a href="/2016/11/07/emacs/closure/">Closure in Elisp, Lexical Binding After Emacs 24.1</a>
           </li>
         
           <li>
-            <a href="/2016/11/06/destructuring-assignment/">Clojure Destructuring Assignment</a>
+            <a href="/2016/11/06/clojure/lambda-vs-literal-fn/">Differences Between Lambda functions and literal functions</a>
+          </li>
+        
+          <li>
+            <a href="/2016/11/06/clojure/destructuring-assignment/">Clojure Destructuring Assignment</a>
           </li>
         
       </ul>

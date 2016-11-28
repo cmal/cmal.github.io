@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Clojure Destructuring Assignment | Learning Clojure</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="function editAtGithub(isRaw){
+    var url_parts = document.location.pathname.split(&apos;/&apos;);
+    var postname = url_parts[url_parts.length - 2];
+    if(url_parts.length == 3){ // is a page(wiki about e">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Clojure Destructuring Assignment">
+<meta property="og:url" content="http://cmal.github.io/2016/11/06/clojure/destructuring-assignment/index.html">
+<meta property="og:site_name" content="Learning Clojure">
+<meta property="og:description" content="function editAtGithub(isRaw){
+    var url_parts = document.location.pathname.split(&apos;/&apos;);
+    var postname = url_parts[url_parts.length - 2];
+    if(url_parts.length == 3){ // is a page(wiki about e">
+<meta property="og:updated_time" content="2016-11-06T16:09:43.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Clojure Destructuring Assignment">
+<meta name="twitter:description" content="function editAtGithub(isRaw){
+    var url_parts = document.location.pathname.split(&apos;/&apos;);
+    var postname = url_parts[url_parts.length - 2];
+    if(url_parts.length == 3){ // is a page(wiki about e">
+  
+    <link rel="alternate" href="/atom.xml" title="Learning Clojure" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Learning Clojure</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">M-x cider-jack-in</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://cmal.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-clojure/destructuring-assignment" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2016/11/06/clojure/destructuring-assignment/" class="article-date">
+  <time datetime="2016-11-06T14:00:00.000Z" itemprop="datePublished">2016-11-06</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/clojure/">clojure</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Clojure Destructuring Assignment
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        
+
+<script>
+  function editAtGithub(isRaw){
+    var url_parts = document.location.pathname.split('/');
+    var postname = url_parts[url_parts.length - 2];
+    if(url_parts.length == 3){ // is a page(wiki about etc)
+      postname = postname + '/index.org';
+    }else{
+      postname = '_posts/' + postname + '.org';
+    }
+    var url = 'https://github.com/cmal/learning_clojure/tree/source/source/' + postname;
+    if(isRaw)
+      url = 'https://raw.githubusercontent.com/cmal/learning_clojure/source/source/' + postname;
+    window.open(url);
+  }
+</script>
+
+<div id="outline-container-sec-1" class="outline-2">
+<h2 id="sec-1">Clojure Destructuring Assignment</h2>
+<div class="outline-text-2" id="text-1">
+<p>
+A simple example of Clojure&apos;s <code>let</code> assignment:
+</p>
+<div class="org-src-container">
+
+<figure class="highlight clojure"><table><tr><td class="code"><pre><span class="line"><span class="list">(<span class="keyword"><span class="built_in">let</span></span> <span class="collection">[x <span class="number">8</span>]</span></span><br><span class="line"> <span class="list">(<span class="keyword"><span class="built_in">+</span></span> <span class="number">10</span> x)</span>)</span></span><br><span class="line"><span class="comment">;; =&gt; 18</span></span><br></pre></td></tr></table></figure>
+</div>
+</div>
+
+<div id="outline-container-sec-1-1" class="outline-3">
+<h3 id="sec-1-1">Sequential Destructuring</h3>
+<div class="outline-text-3" id="text-1-1">
+<a id="more"></a>
+
+<p>
+To omit trailing values in seq:
+</p>
+<div class="org-src-container">
+
+<figure class="highlight clojure"><table><tr><td class="code"><pre><span class="line"><span class="list">(<span class="keyword"><span class="built_in">let</span></span> <span class="collection">[<span class="collection">[x y z]</span> <span class="collection">[<span class="number">1</span> <span class="number">2</span> <span class="number">3</span> <span class="number">4</span> <span class="number">5</span>]</span>]</span></span><br><span class="line">  <span class="list">(<span class="keyword"><span class="built_in">str</span></span> x y z)</span>)</span></span><br><span class="line"><span class="comment">;; =&gt; &quot;123&quot;</span></span><br></pre></td></tr></table></figure>
+</div>
+
+<p>
+To omit arbitrary values in seq:
+</p>
+<div class="org-src-container">
+
+<figure class="highlight clojure"><table><tr><td class="code"><pre><span class="line"><span class="list">(<span class="keyword"><span class="built_in">let</span></span> <span class="collection">[<span class="collection">[x _ _ <span class="collection">[y z]</span>]</span> <span class="collection">[ <span class="number">1</span> <span class="number">2</span> <span class="number">3</span> <span class="collection">[<span class="number">4</span> <span class="number">5</span>]</span>]</span>]</span></span><br><span class="line">  <span class="list">(<span class="keyword"><span class="built_in">str</span></span> x y z)</span>)</span></span><br><span class="line"><span class="comment">;; =&gt; &quot;145&quot;</span></span><br></pre></td></tr></table></figure>
+</div>
+
+<p>
+To gather extra-positional values:
+</p>
+<div class="org-src-container">
+
+<figure class="highlight clojure"><table><tr><td class="code"><pre><span class="line"><span class="list">(<span class="keyword"><span class="built_in">let</span></span> <span class="collection">[<span class="collection">[x &amp; rest]</span> <span class="collection">[<span class="number">1</span> <span class="number">2</span> <span class="number">3</span>]</span>]</span></span><br><span class="line">  rest)</span></span><br><span class="line"><span class="comment">;; =&gt; (2 3)</span></span><br></pre></td></tr></table></figure>
+</div>
+
+<p>
+To retain the destructured seq:
+</p>
+<div class="org-src-container">
+
+<figure class="highlight clojure"><table><tr><td class="code"><pre><span class="line"><span class="list">(<span class="keyword"><span class="built_in">let</span></span> <span class="collection">[<span class="collection">[x _ z <span class="attribute">:as</span> s]</span> <span class="collection">[<span class="number">1</span> <span class="number">2</span> <span class="number">3</span>]</span>]</span></span><br><span class="line">  s)</span></span><br><span class="line"><span class="comment">;; =&gt; [1 2 3]</span></span><br></pre></td></tr></table></figure>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-1-2" class="outline-3">
+<h3 id="sec-1-2">Map Destructuring</h3>
+<div class="outline-text-3" id="text-1-2">
+<p>
+Map destructuring is not so intuitive as sequential destructuring.
+A common example:
+</p>
+<div class="org-src-container">
+
+<figure class="highlight clojure"><table><tr><td class="code"><pre><span class="line"><span class="list">(<span class="keyword"><span class="built_in">let</span></span> <span class="collection">[<span class="collection">{a <span class="attribute">:a</span> b <span class="attribute">:b</span> c <span class="string">&quot;foo&quot;</span>}</span> <span class="collection">{<span class="attribute">:a</span> <span class="number">1</span> <span class="attribute">:b</span> <span class="number">2</span> <span class="string">&quot;foo&quot;</span> <span class="string">&quot;bar&quot;</span>}</span>]</span></span><br><span class="line">  <span class="list">(<span class="keyword"><span class="built_in">str</span></span> a b c)</span>)</span></span><br><span class="line"><span class="comment">;; =&gt; &quot;12bar&quot;</span></span><br></pre></td></tr></table></figure>
+</div>
+
+<p>
+To destructure a seq using index:
+</p>
+<div class="org-src-container">
+
+<figure class="highlight clojure"><table><tr><td class="code"><pre><span class="line"><span class="list">(<span class="keyword"><span class="built_in">let</span></span> <span class="collection">[<span class="collection">{x <span class="number">3</span> y <span class="number">2</span>}</span> <span class="collection">[<span class="number">1</span> <span class="number">2</span> <span class="number">3</span> <span class="number">4</span> <span class="number">5</span>]</span>]</span></span><br><span class="line">  <span class="list">(<span class="keyword"><span class="built_in">str</span></span> x y)</span>)</span></span><br><span class="line"><span class="comment">;; =&gt; &quot;43&quot;</span></span><br></pre></td></tr></table></figure>
+</div>
+
+<p>
+To destructure a nesting map:
+</p>
+<div class="org-src-container">
+
+<figure class="highlight clojure"><table><tr><td class="code"><pre><span class="line"><span class="list">(<span class="keyword"><span class="built_in">let</span></span> <span class="collection">[<span class="collection">{<span class="collection">{x <span class="attribute">:a</span>}</span> <span class="attribute">:b</span>}</span> <span class="collection">{<span class="attribute">:b</span> <span class="collection">{<span class="attribute">:b</span> <span class="number">1</span> <span class="attribute">:a</span> <span class="number">2</span>}</span>}</span>]</span></span><br><span class="line">  x)</span></span><br><span class="line"><span class="comment">;; =&gt; 2</span></span><br><span class="line"><span class="list">(<span class="keyword"><span class="built_in">let</span></span> <span class="collection">[<span class="collection">{<span class="collection">[x _ y]</span> <span class="attribute">:b</span>}</span> <span class="collection">{<span class="attribute">:b</span> <span class="collection">[<span class="number">1</span> <span class="number">2</span> <span class="number">3</span>]</span>}</span>]</span></span><br><span class="line">  <span class="collection">[x y]</span>)</span></span><br><span class="line"><span class="comment">;; =&gt; [1 3]</span></span><br></pre></td></tr></table></figure>
+</div>
+
+<p>
+Default values when not found:
+</p>
+<div class="org-src-container">
+
+<figure class="highlight clojure"><table><tr><td class="code"><pre><span class="line"><span class="list">(<span class="keyword"><span class="built_in">let</span></span> <span class="collection">[<span class="collection">{k <span class="attribute">:unknown</span> x <span class="attribute">:a</span> <span class="attribute">:or</span> <span class="collection">{k <span class="string">&quot;not found&quot;</span>}</span>}</span></span><br><span class="line">      <span class="collection">{<span class="attribute">:a</span> <span class="number">1</span> <span class="attribute">:b</span> <span class="number">2</span>}</span>]</span></span><br><span class="line">  <span class="list">(<span class="keyword"><span class="built_in">str</span></span> k x)</span>)</span></span><br><span class="line"><span class="comment">;; =&gt; &quot;not found1&quot;</span></span><br></pre></td></tr></table></figure>
+</div>
+
+<p>
+Binding using <code>:keys</code>, <code>:strs</code>, and <code>:syms</code>:
+</p>
+<div class="org-src-container">
+
+<figure class="highlight clojure"><table><tr><td class="code"><pre><span class="line"><span class="list">(<span class="keyword"><span class="built_in">let</span></span> <span class="collection">[mp <span class="collection">{<span class="attribute">:a</span> <span class="number">1</span> <span class="attribute">:b</span> <span class="number">2</span> <span class="attribute">:c</span> <span class="number">3</span> <span class="string">&quot;d&quot;</span> <span class="number">4</span> <span class="string">&quot;e&quot;</span> <span class="number">5</span> <span class="string">&quot;f&quot;</span> <span class="number">6</span> &apos;g <span class="number">7</span> &apos;h <span class="number">8</span>}</span></span><br><span class="line">      <span class="collection">{<span class="attribute">:keys</span> <span class="collection">[a b c]</span>}</span> mp</span><br><span class="line">      <span class="collection">{<span class="attribute">:strs</span> <span class="collection">[d e f]</span>}</span> mp</span><br><span class="line">      <span class="collection">{<span class="attribute">:syms</span> <span class="collection">[g h]</span>}</span> mp]</span></span><br><span class="line">  <span class="list">(<span class="keyword"><span class="built_in">str</span></span> a b c d e f g h)</span>)</span></span><br><span class="line"><span class="comment">;; =&gt; &quot;12345678&quot;</span></span><br></pre></td></tr></table></figure>
+</div>
+
+<p>
+<code>&amp;</code> will destructure rest sequences as map k/v pairs:
+</p>
+<div class="org-src-container">
+
+<figure class="highlight clojure"><table><tr><td class="code"><pre><span class="line"><span class="list">(<span class="keyword"><span class="built_in">let</span></span> <span class="collection">[<span class="collection">[k v &amp; <span class="collection">{<span class="attribute">:keys</span> <span class="collection">[b c d]</span>}</span>]</span> <span class="collection">[<span class="attribute">:a</span> <span class="number">1</span> <span class="attribute">:b</span> <span class="number">2</span> <span class="attribute">:c</span> <span class="number">3</span> <span class="attribute">:d</span> <span class="number">4</span>]</span>]</span></span><br><span class="line">  <span class="collection">[<span class="list">(<span class="keyword"><span class="built_in">str</span></span> k v)</span> <span class="list">(<span class="keyword"><span class="built_in">str</span></span> b c d)</span>]</span>)</span></span><br><span class="line"><span class="comment">;; =&gt; [&quot;:a1&quot; &quot;234&quot;]</span></span><br></pre></td></tr></table></figure>
+</div>
+
+<p>
+Collections can be used as keyword for destructuring:
+(a not so intuitive example)
+</p>
+<div class="org-src-container">
+
+<figure class="highlight clojure"><table><tr><td class="code"><pre><span class="line"><span class="list">(<span class="keyword"><span class="built_in">let</span></span> <span class="collection">[<span class="collection">[&amp; <span class="collection">{x <span class="collection">[<span class="attribute">:a</span> <span class="number">1</span>]</span>}</span>]</span> &apos;<span class="list">(<span class="collection">[<span class="attribute">:a</span> <span class="number">1</span>]</span> <span class="number">2</span>)</span>]</span></span><br><span class="line">  x)</span></span><br><span class="line"><span class="comment">;; =&gt; 2</span></span><br></pre></td></tr></table></figure>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-1-3" class="outline-3">
+<h3 id="sec-1-3">Destructuring in <code>fn</code></h3>
+<div class="outline-text-3" id="text-1-3">
+<p>
+<code>fn</code> implies a <code>let</code> in its assignment and a <code>do</code> in its body.
+Actually, you can think the lambda function <code>fn</code> structure
+</p>
+<div class="org-src-container">
+
+<figure class="highlight clojure"><table><tr><td class="code"><pre><span class="line"><span class="list">(<span class="list">(<span class="keyword"><span class="built_in">fn</span></span> <span class="collection">[x]</span></span><br><span class="line">   <span class="list">(<span class="keyword"><span class="built_in">+</span></span> <span class="number">10</span> x)</span>)</span></span><br><span class="line"> <span class="number">8</span>)</span></span><br></pre></td></tr></table></figure>
+</div>
+<p>
+as something like:
+</p>
+<div class="org-src-container">
+
+<figure class="highlight clojure"><table><tr><td class="code"><pre><span class="line"><span class="list">(<span class="keyword"><span class="built_in">let</span></span> <span class="collection">[x <span class="number">8</span>]</span></span><br><span class="line">  <span class="list">(<span class="keyword"><span class="built_in">do</span></span></span><br><span class="line">    <span class="list">(<span class="keyword"><span class="built_in">+</span></span> <span class="number">10</span> x)</span>)</span>)</span></span><br></pre></td></tr></table></figure>
+</div>
+<p>
+Then EVERYTHING ABOVE can be used in destructuring assignments of <code>fn</code>, just like in <code>let</code>.
+But <code>fn</code> can do more, because of <a href="http://clojure-doc.org/articles/language/functions.html#multi-arity-functions" target="_blank" rel="external">arity variadic</a>.
+</p>
+</div>
+</div>
+</div>
+
+<div style="font-size: 14px;padding: 5px;line-height: 20px;border: 1px solid;"><a href="javascript: editAtGithub();" target="_blank" rel="external">Edit Me at Github</a> - <a href="javascript: editAtGithub(true)" target="_blank" rel="external">Org Source</a> - Last Updated 2016-11-07 &#x4E00; 00:09.<br>Render by <a href="https://github.com/CodeFalling/hexo-renderer-org" target="_blank" rel="external">hexo-renderer-org</a> with <a href="http://www.gnu.org/software/emacs/" target="_blank" rel="external">Emacs</a> 25.1.1 (<a href="http://orgmode.org" target="_blank" rel="external">Org</a> mode 8.2.10)</div>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://cmal.github.io/2016/11/06/clojure/destructuring-assignment/" data-id="ciw1l23as000378s66mlskvsm" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ClojureBasics/">ClojureBasics</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2016/11/06/clojure/lambda-vs-literal-fn/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          Differences Between Lambda functions and literal functions
+        
+      </div>
+    </a>
+  
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/clojure/">clojure</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/emacs/">emacs</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/ClojureBasics/">ClojureBasics</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Emacs/">Emacs</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/ClojureBasics/" style="font-size: 10px;">ClojureBasics</a> <a href="/tags/Emacs/" style="font-size: 10px;">Emacs</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/11/">November 2016</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2016/11/07/emacs/fboundp/">Use ~fboundp~ to check whether a symbol bound to a function</a>
+          </li>
+        
+          <li>
+            <a href="/2016/11/07/emacs/closure/">Closure in Elisp, Lexical Binding After Emacs 24.1</a>
+          </li>
+        
+          <li>
+            <a href="/2016/11/06/clojure/lambda-vs-literal-fn/">Differences Between Lambda functions and literal functions</a>
+          </li>
+        
+          <li>
+            <a href="/2016/11/06/clojure/destructuring-assignment/">Clojure Destructuring Assignment</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2016 Yu Zhao 赵宇<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+</body>
+</html>

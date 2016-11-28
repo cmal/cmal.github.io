@@ -3,14 +3,27 @@
 <head>
   <meta charset="utf-8">
   
-  <title>Archives | Learning Clojure</title>
+  <title>Use ~fboundp~ to check whether a symbol bound to a function | Learning Clojure</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Learning Clojure">
-<meta property="og:url" content="http://cmal.github.io/archives/index.html">
+  <meta name="description" content="function editAtGithub(isRaw){
+    var url_parts = document.location.pathname.split(&apos;/&apos;);
+    var postname = url_parts[url_parts.length - 2];
+    if(url_parts.length == 3){ // is a page(wiki about">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Use ~fboundp~ to check whether a symbol bound to a function">
+<meta property="og:url" content="http://cmal.github.io/2016/11/07/emacs/fboundp/index.html">
 <meta property="og:site_name" content="Learning Clojure">
+<meta property="og:description" content="function editAtGithub(isRaw){
+    var url_parts = document.location.pathname.split(&apos;/&apos;);
+    var postname = url_parts[url_parts.length - 2];
+    if(url_parts.length == 3){ // is a page(wiki about">
+<meta property="og:updated_time" content="2016-11-16T02:15:01.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Learning Clojure">
+<meta name="twitter:title" content="Use ~fboundp~ to check whether a symbol bound to a function">
+<meta name="twitter:description" content="function editAtGithub(isRaw){
+    var url_parts = document.location.pathname.split(&apos;/&apos;);
+    var postname = url_parts[url_parts.length - 2];
+    if(url_parts.length == 3){ // is a page(wiki about">
   
     <link rel="alternate" href="/atom.xml" title="Learning Clojure" type="application/atom+xml">
   
@@ -63,96 +76,109 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main">
-  
-  
-    
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2016" class="archive-year">2016</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2016/11/07/emacs/fboundp/" class="archive-article-date">
-  <time datetime="2016-11-07T15:25:00.000Z" itemprop="datePublished">Nov 7</time>
+        <section id="main"><article id="post-emacs/fboundp" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2016/11/07/emacs/fboundp/" class="article-date">
+  <time datetime="2016-11-07T15:25:00.000Z" itemprop="datePublished">2016-11-07</time>
 </a>
-      
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/emacs/">emacs</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2016/11/07/emacs/fboundp/">Use ~fboundp~ to check whether a symbol bound to a function</a>
+    <h1 class="article-title" itemprop="name">
+      Use ~fboundp~ to check whether a symbol bound to a function
     </h1>
   
 
-    </header>
-  </div>
-</article>
-  
+      </header>
     
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2016/11/07/emacs/closure/" class="archive-article-date">
-  <time datetime="2016-11-07T15:25:00.000Z" itemprop="datePublished">Nov 7</time>
-</a>
+    <div class="article-entry" itemprop="articleBody">
       
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2016/11/07/emacs/closure/">Closure in Elisp, Lexical Binding After Emacs 24.1</a>
-    </h1>
-  
+        
 
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2016/11/06/clojure/lambda-vs-literal-fn/" class="archive-article-date">
-  <time datetime="2016-11-06T15:00:00.000Z" itemprop="datePublished">Nov 6</time>
-</a>
+<script>
+  function editAtGithub(isRaw){
+    var url_parts = document.location.pathname.split('/');
+    var postname = url_parts[url_parts.length - 2];
+    if(url_parts.length == 3){ // is a page(wiki about etc)
+      postname = postname + '/index.org';
+    }else{
+      postname = '_posts/' + postname + '.org';
+    }
+    var url = 'https://github.com/cmal/learning_clojure/tree/source/source/' + postname;
+    if(isRaw)
+      url = 'https://raw.githubusercontent.com/cmal/learning_clojure/source/source/' + postname;
+    window.open(url);
+  }
+</script>
+
+<div id="outline-container-sec-1" class="outline-2">
+<h2 id="sec-1">Bind function body to a symbol</h2>
+<div class="outline-text-2" id="text-1">
+<p>
+The <code>defun</code> in Emacs will bind a symbol to a function body, whereas
+the <code>fmakeunbound</code> will unbind a symbol from the bound function body.
+</p>
+
+<p>
+The <code>foundp</code> checks whether a symbol has already bound
+to a function.
+</p>
+
+<p>
+Look at the example below:
+</p>
+<div class="org-src-container">
+
+<figure class="highlight"><table><tr><td class="code"><pre><span class="line">(defun foo (x) x)
+;; =&gt; foo
+(fboundp &apos;foo)
+;; =&gt; t
+(foo 1)
+;; =&gt; 1
+(fmakunbound &apos;foo) ;; fmakunbound will unbound a symbol
+;; =&gt; foo
+(fboundp &apos;foo)
+;; =&gt; nil
+(foo 1) ;; error</span><br></pre></td></tr></table></figure>
+</div>
+</div>
+</div>
+
+<div style="font-size: 14px;padding: 5px;line-height: 20px;border: 1px solid;"><a href="javascript: editAtGithub();" target="_blank" rel="external">Edit Me at Github</a> - <a href="javascript: editAtGithub(true)" target="_blank" rel="external">Org Source</a> - Last Updated 2016-11-16 &#x4E09; 10:15.<br>Render by <a href="https://github.com/CodeFalling/hexo-renderer-org" target="_blank" rel="external">hexo-renderer-org</a> with <a href="http://www.gnu.org/software/emacs/" target="_blank" rel="external">Emacs</a> 25.1.1 (<a href="http://orgmode.org" target="_blank" rel="external">Org</a> mode 8.2.10)</div>
+
       
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2016/11/06/clojure/lambda-vs-literal-fn/">Differences Between Lambda functions and literal functions</a>
-    </h1>
-  
-
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2016/11/06/clojure/destructuring-assignment/" class="archive-article-date">
-  <time datetime="2016-11-06T14:00:00.000Z" itemprop="datePublished">Nov 6</time>
-</a>
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://cmal.github.io/2016/11/07/emacs/fboundp/" data-id="ciw1l23at000478s6zyi9j9tv" class="article-share-link">Share</a>
       
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2016/11/06/clojure/destructuring-assignment/">Clojure Destructuring Assignment</a>
-    </h1>
-  
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Emacs/">Emacs</a></li></ul>
 
-    </header>
+    </footer>
   </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2016/11/07/emacs/closure/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">Closure in Elisp, Lexical Binding After Emacs 24.1</div>
+    </a>
+  
+</nav>
+
+  
 </article>
-  
-  
-    </div></section>
-  
 
 </section>
         
