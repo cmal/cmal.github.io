@@ -65,6 +65,202 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-emacs/closure" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2016/11/07/emacs/closure/" class="article-date">
+  <time datetime="2016-11-07T15:25:00.000Z" itemprop="datePublished">2016-11-07</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/emacs/">emacs</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/11/07/emacs/closure/">Closure in Elisp, Lexical Binding After Emacs 24.1</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        
+
+<script>
+  function editAtGithub(isRaw){
+    var url_parts = document.location.pathname.split('/');
+    var postname = url_parts[url_parts.length - 2];
+    if(url_parts.length == 3){ // is a page(wiki about etc)
+      postname = postname + '/index.org';
+    }else{
+      postname = '_posts/' + postname + '.org';
+    }
+    var url = 'https://github.com/cmal/learning_clojure/tree/source/source/' + postname;
+    if(isRaw)
+      url = 'https://raw.githubusercontent.com/cmal/learning_clojure/source/source/' + postname;
+    window.open(url);
+  }
+</script>
+
+<div id="outline-container-sec-1" class="outline-2">
+<h2 id="sec-1">Lexical Binding</h2>
+<div class="outline-text-2" id="text-1">
+<p>
+Lexical binding means form a closure in a (lambda) function body.
+Default GNU Emacs will not use lexical binding.
+</p>
+
+<p>
+So,
+</p>
+<div class="org-src-container">
+
+<figure class="highlight"><table><tr><td class="code"><pre><span class="line">(default-value &apos;lexical-binding)
+;; =&gt; nil
+(lambda (x) (* x x))
+;; =&gt; (lambda (x) (* x x))</span><br></pre></td></tr></table></figure>
+</div>
+
+<p>
+But one can set variable <code>lexical-binding</code> to t, to make Emacs use
+lexical-binding. Lexical binding makes lambda function form a closure.
+</p>
+<div class="org-src-container">
+
+<figure class="highlight"><table><tr><td class="code"><pre><span class="line">(setq lexical-binding t)
+;; =&gt; t
+(lambda (x) (* x x))
+;; =&gt; (closure (t) (x) (* x x))</span><br></pre></td></tr></table></figure>
+</div>
+
+<p>
+When writing Emacs Lisp extentions, one can set lexical-binding in the first
+line of `.el` files to force a lexical-binding context. e.g.
+</p>
+<pre class="example">
+;;; some.el --- some extention for Emacs-lisp  -*- lexical-binding: t; -*-
+</pre>
+</div>
+</div>
+
+<div style="font-size: 14px;padding: 5px;line-height: 20px;border: 1px solid;"><a href="javascript: editAtGithub();" target="_blank" rel="external">Edit Me at Github</a> - <a href="javascript: editAtGithub(true)" target="_blank" rel="external">Org Source</a> - Last Updated 2016-11-16 &#x4E09; 10:18.<br>Render by <a href="https://github.com/CodeFalling/hexo-renderer-org" target="_blank" rel="external">hexo-renderer-org</a> with <a href="http://www.gnu.org/software/emacs/" target="_blank" rel="external">Emacs</a> 25.1.1 (<a href="http://orgmode.org" target="_blank" rel="external">Org</a> mode 8.2.10)</div>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://cmal.github.io/2016/11/07/emacs/closure/" data-id="civ88kopk00003s4f9l777kmf" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Emacs/">Emacs</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-emacs/fboundp" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2016/11/07/emacs/fboundp/" class="article-date">
+  <time datetime="2016-11-07T15:25:00.000Z" itemprop="datePublished">2016-11-07</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/emacs/">emacs</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/11/07/emacs/fboundp/">Use ~fboundp~ to check whether a symbol bound to a function</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        
+
+<script>
+  function editAtGithub(isRaw){
+    var url_parts = document.location.pathname.split('/');
+    var postname = url_parts[url_parts.length - 2];
+    if(url_parts.length == 3){ // is a page(wiki about etc)
+      postname = postname + '/index.org';
+    }else{
+      postname = '_posts/' + postname + '.org';
+    }
+    var url = 'https://github.com/cmal/learning_clojure/tree/source/source/' + postname;
+    if(isRaw)
+      url = 'https://raw.githubusercontent.com/cmal/learning_clojure/source/source/' + postname;
+    window.open(url);
+  }
+</script>
+
+<div id="outline-container-sec-1" class="outline-2">
+<h2 id="sec-1">Bind function body to a symbol</h2>
+<div class="outline-text-2" id="text-1">
+<p>
+The <code>defun</code> in Emacs will bind a symbol to a function body, whereas
+the <code>fmakeunbound</code> will unbind a symbol from the bound function body.
+</p>
+
+<p>
+The <code>foundp</code> checks whether a symbol has already bound
+to a function.
+</p>
+
+<p>
+Look at the example below:
+</p>
+<div class="org-src-container">
+
+<figure class="highlight"><table><tr><td class="code"><pre><span class="line">(defun foo (x) x)
+;; =&gt; foo
+(fboundp &apos;foo)
+;; =&gt; t
+(foo 1)
+;; =&gt; 1
+(fmakunbound &apos;foo) ;; fmakunbound will unbound a symbol
+;; =&gt; foo
+(fboundp &apos;foo)
+;; =&gt; nil
+(foo 1) ;; error</span><br></pre></td></tr></table></figure>
+</div>
+</div>
+</div>
+
+<div style="font-size: 14px;padding: 5px;line-height: 20px;border: 1px solid;"><a href="javascript: editAtGithub();" target="_blank" rel="external">Edit Me at Github</a> - <a href="javascript: editAtGithub(true)" target="_blank" rel="external">Org Source</a> - Last Updated 2016-11-07 &#x4E00; 23:43.<br>Render by <a href="https://github.com/CodeFalling/hexo-renderer-org" target="_blank" rel="external">hexo-renderer-org</a> with <a href="http://www.gnu.org/software/emacs/" target="_blank" rel="external">Emacs</a> 25.1.1 (<a href="http://orgmode.org" target="_blank" rel="external">Org</a> mode 8.2.10)</div>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://cmal.github.io/2016/11/07/emacs/fboundp/" data-id="civ88kops00013s4ff9pqs2jw" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Emacs/">Emacs</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-lambda-vs-literal-fn" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2016/11/06/lambda-vs-literal-fn/" class="article-date">
@@ -234,7 +430,7 @@ A simple example of Clojure&apos;s <code>let</code> assignment:
   <div class="widget-wrap">
     <h3 class="widget-title">Categories</h3>
     <div class="widget">
-      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/clojure/">clojure</a></li></ul>
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/clojure/">clojure</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/emacs/">emacs</a></li></ul>
     </div>
   </div>
 
@@ -244,7 +440,7 @@ A simple example of Clojure&apos;s <code>let</code> assignment:
   <div class="widget-wrap">
     <h3 class="widget-title">Tags</h3>
     <div class="widget">
-      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/ClojureBasics/">ClojureBasics</a></li></ul>
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/ClojureBasics/">ClojureBasics</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Emacs/">Emacs</a></li></ul>
     </div>
   </div>
 
@@ -254,7 +450,7 @@ A simple example of Clojure&apos;s <code>let</code> assignment:
   <div class="widget-wrap">
     <h3 class="widget-title">Tag Cloud</h3>
     <div class="widget tagcloud">
-      <a href="/tags/ClojureBasics/" style="font-size: 10px;">ClojureBasics</a>
+      <a href="/tags/ClojureBasics/" style="font-size: 10px;">ClojureBasics</a> <a href="/tags/Emacs/" style="font-size: 10px;">Emacs</a>
     </div>
   </div>
 
@@ -274,6 +470,14 @@ A simple example of Clojure&apos;s <code>let</code> assignment:
     <h3 class="widget-title">Recent Posts</h3>
     <div class="widget">
       <ul>
+        
+          <li>
+            <a href="/2016/11/07/emacs/closure/">Closure in Elisp, Lexical Binding After Emacs 24.1</a>
+          </li>
+        
+          <li>
+            <a href="/2016/11/07/emacs/fboundp/">Use ~fboundp~ to check whether a symbol bound to a function</a>
+          </li>
         
           <li>
             <a href="/2016/11/06/lambda-vs-literal-fn/">Differences Between Lambda functions and literal functions</a>
