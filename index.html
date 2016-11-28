@@ -65,6 +65,127 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-emacs/closure" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2016/11/07/emacs/closure/" class="article-date">
+  <time datetime="2016-11-07T15:25:00.000Z" itemprop="datePublished">2016-11-07</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/emacs/">emacs</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/11/07/emacs/closure/">Closure in Elisp, Lexical Binding After Emacs 24.1</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        
+
+<script>
+  function editAtGithub(isRaw){
+    var url_parts = document.location.pathname.split('/');
+    var postname = url_parts[url_parts.length - 2];
+    if(url_parts.length == 3){ // is a page(wiki about etc)
+      postname = postname + '/index.org';
+    }else{
+      postname = '_posts/' + postname + '.org';
+    }
+    var url = 'https://github.com/cmal/learning_clojure/tree/source/source/' + postname;
+    if(isRaw)
+      url = 'https://raw.githubusercontent.com/cmal/learning_clojure/source/source/' + postname;
+    window.open(url);
+  }
+</script>
+
+<div id="outline-container-sec-1" class="outline-2">
+<h2 id="sec-1">Lexical Binding</h2>
+<div class="outline-text-2" id="text-1">
+<p>
+Lexical binding means form a closure in a (lambda) function body.
+</p>
+
+<p>
+What is lexical binding? Take a look at these examples:
+</p>
+
+<div class="org-src-container">
+
+<figure class="highlight lisp"><table><tr><td class="code"><pre><span class="line"><span class="list">(<span class="keyword">let</span> <span class="list">(<span class="list">(<span class="keyword">x</span> <span class="number">1</span>)</span>)</span>    <span class="comment">; x is lexically bound.</span></span><br><span class="line">  <span class="list">(<span class="keyword">+</span> x <span class="number">3</span>)</span>)</span> <span class="comment">;; =&gt; 4</span></span><br><span class="line"><span class="list">(<span class="keyword">setq</span> x <span class="number">3</span>)</span>  <span class="comment">;; =&gt; 3</span></span><br><span class="line"></span><br><span class="line"><span class="list">(<span class="keyword">defun</span> getx <span class="list">()</span></span><br><span class="line">  x)</span> <span class="comment">;; =&gt; getx</span></span><br><span class="line"><span class="list">(<span class="keyword">getx</span>)</span> <span class="comment">;; =&gt; 3</span></span><br><span class="line"><span class="list">(<span class="keyword">let</span> <span class="list">(<span class="list">(<span class="keyword">x</span> <span class="number">1</span>)</span>)</span>    <span class="comment">; x is lexically bound.</span></span><br><span class="line">  <span class="list">(<span class="keyword">getx</span>)</span>)</span> <span class="comment">;; =&gt; 1</span></span><br></pre></td></tr></table></figure>
+</div>
+<p>
+The body in <code>let</code> forms a context in which <code>x</code> was bound to 1,
+rather than 3 in global context.
+</p>
+</div>
+</div>
+
+<div id="outline-container-sec-2" class="outline-2">
+<h2 id="sec-2">Emacs Lexical-Binding Settings</h2>
+<div class="outline-text-2" id="text-2">
+<p>
+Lexical binding is a realtive new feature introduced into GNU Emacs,
+in version 24.1. Default GNU Emacs will not use lexical binding.
+</p>
+
+<p>
+So,
+</p>
+<div class="org-src-container">
+
+<figure class="highlight lisp"><table><tr><td class="code"><pre><span class="line"><span class="list">(<span class="keyword">default-value</span> <span class="quoted">&apos;lexical-binding</span>)</span></span><br><span class="line"><span class="comment">;; =&gt; nil</span></span><br><span class="line"><span class="list">(<span class="keyword">lambda</span> <span class="list">(<span class="keyword">x</span>)</span> <span class="list">(<span class="keyword">*</span> x x)</span>)</span></span><br><span class="line"><span class="comment">;; =&gt; (lambda (x) (* x x))</span></span><br></pre></td></tr></table></figure>
+</div>
+
+<p>
+But one can set variable <code>lexical-binding</code> to t, to make Emacs use
+lexical-binding. Lexical binding makes lambda function form a closure.
+</p>
+<div class="org-src-container">
+
+<figure class="highlight"><table><tr><td class="code"><pre><span class="line">(setq lexical-binding t)
+;; =&gt; t
+(lambda (x) (* x x))
+;; =&gt; (closure (t) (x) (* x x))</span><br></pre></td></tr></table></figure>
+</div>
+
+<p>
+When writing Emacs Lisp extentions, one can set lexical-binding in the first
+line of `.el` files to force a lexical-binding context. e.g.
+</p>
+<pre class="example">
+;;; some.el --- some extention for Emacs-lisp  -*- lexical-binding: t; -*-
+</pre>
+</div>
+</div>
+
+<div style="font-size: 14px;padding: 5px;line-height: 20px;border: 1px solid;"><a href="javascript: editAtGithub();" target="_blank" rel="external">Edit Me at Github</a> - <a href="javascript: editAtGithub(true)" target="_blank" rel="external">Org Source</a> - Last Updated 2016-11-28 &#x4E00; 12:44.<br>Render by <a href="https://github.com/CodeFalling/hexo-renderer-org" target="_blank" rel="external">hexo-renderer-org</a> with <a href="http://www.gnu.org/software/emacs/" target="_blank" rel="external">Emacs</a> 25.1.1 (<a href="http://orgmode.org" target="_blank" rel="external">Org</a> mode 8.2.10)</div>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://cmal.github.io/2016/11/07/emacs/closure/" data-id="ciw1ld6ms0004ess6whaxcan5" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Emacs/">Emacs</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-emacs/fboundp" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2016/11/07/emacs/fboundp/" class="article-date">
@@ -127,129 +248,17 @@ Look at the example below:
 </p>
 <div class="org-src-container">
 
-<figure class="highlight"><table><tr><td class="code"><pre><span class="line">(defun foo (x) x)
-;; =&gt; foo
-(fboundp &apos;foo)
-;; =&gt; t
-(foo 1)
-;; =&gt; 1
-(fmakunbound &apos;foo) ;; fmakunbound will unbound a symbol
-;; =&gt; foo
-(fboundp &apos;foo)
-;; =&gt; nil
-(foo 1) ;; error</span><br></pre></td></tr></table></figure>
+<figure class="highlight lisp"><table><tr><td class="code"><pre><span class="line"><span class="list">(<span class="keyword">defun</span> foo <span class="list">(<span class="keyword">x</span>)</span> x)</span></span><br><span class="line"><span class="comment">;; =&gt; foo</span></span><br><span class="line"><span class="list">(<span class="keyword">fboundp</span> <span class="quoted">&apos;foo</span>)</span></span><br><span class="line"><span class="comment">;; =&gt; t</span></span><br><span class="line"><span class="list">(<span class="keyword">foo</span> <span class="number">1</span>)</span></span><br><span class="line"><span class="comment">;; =&gt; 1</span></span><br><span class="line"><span class="list">(<span class="keyword">fmakunbound</span> <span class="quoted">&apos;foo</span>)</span> <span class="comment">;; fmakunbound will unbound a symbol</span></span><br><span class="line"><span class="comment">;; =&gt; foo</span></span><br><span class="line"><span class="list">(<span class="keyword">fboundp</span> <span class="quoted">&apos;foo</span>)</span></span><br><span class="line"><span class="comment">;; =&gt; nil</span></span><br><span class="line"><span class="list">(<span class="keyword">foo</span> <span class="number">1</span>)</span> <span class="comment">;; error</span></span><br></pre></td></tr></table></figure>
 </div>
 </div>
 </div>
 
-<div style="font-size: 14px;padding: 5px;line-height: 20px;border: 1px solid;"><a href="javascript: editAtGithub();" target="_blank" rel="external">Edit Me at Github</a> - <a href="javascript: editAtGithub(true)" target="_blank" rel="external">Org Source</a> - Last Updated 2016-11-16 &#x4E09; 10:15.<br>Render by <a href="https://github.com/CodeFalling/hexo-renderer-org" target="_blank" rel="external">hexo-renderer-org</a> with <a href="http://www.gnu.org/software/emacs/" target="_blank" rel="external">Emacs</a> 25.1.1 (<a href="http://orgmode.org" target="_blank" rel="external">Org</a> mode 8.2.10)</div>
+<div style="font-size: 14px;padding: 5px;line-height: 20px;border: 1px solid;"><a href="javascript: editAtGithub();" target="_blank" rel="external">Edit Me at Github</a> - <a href="javascript: editAtGithub(true)" target="_blank" rel="external">Org Source</a> - Last Updated 2016-11-28 &#x4E00; 12:40.<br>Render by <a href="https://github.com/CodeFalling/hexo-renderer-org" target="_blank" rel="external">hexo-renderer-org</a> with <a href="http://www.gnu.org/software/emacs/" target="_blank" rel="external">Emacs</a> 25.1.1 (<a href="http://orgmode.org" target="_blank" rel="external">Org</a> mode 8.2.10)</div>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://cmal.github.io/2016/11/07/emacs/fboundp/" data-id="ciw1l23at000478s6zyi9j9tv" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Emacs/">Emacs</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-emacs/closure" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2016/11/07/emacs/closure/" class="article-date">
-  <time datetime="2016-11-07T15:25:00.000Z" itemprop="datePublished">2016-11-07</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/emacs/">emacs</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/11/07/emacs/closure/">Closure in Elisp, Lexical Binding After Emacs 24.1</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        
-
-<script>
-  function editAtGithub(isRaw){
-    var url_parts = document.location.pathname.split('/');
-    var postname = url_parts[url_parts.length - 2];
-    if(url_parts.length == 3){ // is a page(wiki about etc)
-      postname = postname + '/index.org';
-    }else{
-      postname = '_posts/' + postname + '.org';
-    }
-    var url = 'https://github.com/cmal/learning_clojure/tree/source/source/' + postname;
-    if(isRaw)
-      url = 'https://raw.githubusercontent.com/cmal/learning_clojure/source/source/' + postname;
-    window.open(url);
-  }
-</script>
-
-<div id="outline-container-sec-1" class="outline-2">
-<h2 id="sec-1">Lexical Binding</h2>
-<div class="outline-text-2" id="text-1">
-<p>
-Lexical binding means form a closure in a (lambda) function body.
-Default GNU Emacs will not use lexical binding.
-</p>
-
-<p>
-So,
-</p>
-<div class="org-src-container">
-
-<figure class="highlight"><table><tr><td class="code"><pre><span class="line">(default-value &apos;lexical-binding)
-;; =&gt; nil
-(lambda (x) (* x x))
-;; =&gt; (lambda (x) (* x x))</span><br></pre></td></tr></table></figure>
-</div>
-
-<p>
-But one can set variable <code>lexical-binding</code> to t, to make Emacs use
-lexical-binding. Lexical binding makes lambda function form a closure.
-</p>
-<div class="org-src-container">
-
-<figure class="highlight"><table><tr><td class="code"><pre><span class="line">(setq lexical-binding t)
-;; =&gt; t
-(lambda (x) (* x x))
-;; =&gt; (closure (t) (x) (* x x))</span><br></pre></td></tr></table></figure>
-</div>
-
-<p>
-When writing Emacs Lisp extentions, one can set lexical-binding in the first
-line of `.el` files to force a lexical-binding context. e.g.
-</p>
-<pre class="example">
-;;; some.el --- some extention for Emacs-lisp  -*- lexical-binding: t; -*-
-</pre>
-</div>
-</div>
-
-<div style="font-size: 14px;padding: 5px;line-height: 20px;border: 1px solid;"><a href="javascript: editAtGithub();" target="_blank" rel="external">Edit Me at Github</a> - <a href="javascript: editAtGithub(true)" target="_blank" rel="external">Org Source</a> - Last Updated 2016-11-16 &#x4E09; 10:18.<br>Render by <a href="https://github.com/CodeFalling/hexo-renderer-org" target="_blank" rel="external">hexo-renderer-org</a> with <a href="http://www.gnu.org/software/emacs/" target="_blank" rel="external">Emacs</a> 25.1.1 (<a href="http://orgmode.org" target="_blank" rel="external">Org</a> mode 8.2.10)</div>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://cmal.github.io/2016/11/07/emacs/closure/" data-id="ciw1l23av000578s6hjcnad84" class="article-share-link">Share</a>
+      <a data-url="http://cmal.github.io/2016/11/07/emacs/fboundp/" data-id="ciw1ld6mw0005ess68y41atu2" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Emacs/">Emacs</a></li></ul>
@@ -332,7 +341,7 @@ So <code>read-string</code> can be applied to literal functions.
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://cmal.github.io/2016/11/06/clojure/lambda-vs-literal-fn/" data-id="ciw1l23aq000278s6e239snkc" class="article-share-link">Share</a>
+      <a data-url="http://cmal.github.io/2016/11/06/clojure/lambda-vs-literal-fn/" data-id="ciw1ld6mr0003ess6rwxydvkq" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ClojureBasics/">ClojureBasics</a></li></ul>
@@ -409,7 +418,7 @@ A simple example of Clojure&apos;s <code>let</code> assignment:
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://cmal.github.io/2016/11/06/clojure/destructuring-assignment/" data-id="ciw1l23as000378s66mlskvsm" class="article-share-link">Share</a>
+      <a data-url="http://cmal.github.io/2016/11/06/clojure/destructuring-assignment/" data-id="ciw1ld6mp0002ess6gqdxp8ov" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ClojureBasics/">ClojureBasics</a></li></ul>
@@ -472,11 +481,11 @@ A simple example of Clojure&apos;s <code>let</code> assignment:
       <ul>
         
           <li>
-            <a href="/2016/11/07/emacs/fboundp/">Use ~fboundp~ to check whether a symbol bound to a function</a>
+            <a href="/2016/11/07/emacs/closure/">Closure in Elisp, Lexical Binding After Emacs 24.1</a>
           </li>
         
           <li>
-            <a href="/2016/11/07/emacs/closure/">Closure in Elisp, Lexical Binding After Emacs 24.1</a>
+            <a href="/2016/11/07/emacs/fboundp/">Use ~fboundp~ to check whether a symbol bound to a function</a>
           </li>
         
           <li>

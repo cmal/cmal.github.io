@@ -17,7 +17,7 @@
     var url_parts = document.location.pathname.split(&apos;/&apos;);
     var postname = url_parts[url_parts.length - 2];
     if(url_parts.length == 3){ // is a page(wiki about">
-<meta property="og:updated_time" content="2016-11-16T02:18:20.000Z">
+<meta property="og:updated_time" content="2016-11-28T04:44:24.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Closure in Elisp, Lexical Binding After Emacs 24.1">
 <meta name="twitter:description" content="function editAtGithub(isRaw){
@@ -125,7 +125,29 @@
 <div class="outline-text-2" id="text-1">
 <p>
 Lexical binding means form a closure in a (lambda) function body.
-Default GNU Emacs will not use lexical binding.
+</p>
+
+<p>
+What is lexical binding? Take a look at these examples:
+</p>
+
+<div class="org-src-container">
+
+<figure class="highlight lisp"><table><tr><td class="code"><pre><span class="line"><span class="list">(<span class="keyword">let</span> <span class="list">(<span class="list">(<span class="keyword">x</span> <span class="number">1</span>)</span>)</span>    <span class="comment">; x is lexically bound.</span></span><br><span class="line">  <span class="list">(<span class="keyword">+</span> x <span class="number">3</span>)</span>)</span> <span class="comment">;; =&gt; 4</span></span><br><span class="line"><span class="list">(<span class="keyword">setq</span> x <span class="number">3</span>)</span>  <span class="comment">;; =&gt; 3</span></span><br><span class="line"></span><br><span class="line"><span class="list">(<span class="keyword">defun</span> getx <span class="list">()</span></span><br><span class="line">  x)</span> <span class="comment">;; =&gt; getx</span></span><br><span class="line"><span class="list">(<span class="keyword">getx</span>)</span> <span class="comment">;; =&gt; 3</span></span><br><span class="line"><span class="list">(<span class="keyword">let</span> <span class="list">(<span class="list">(<span class="keyword">x</span> <span class="number">1</span>)</span>)</span>    <span class="comment">; x is lexically bound.</span></span><br><span class="line">  <span class="list">(<span class="keyword">getx</span>)</span>)</span> <span class="comment">;; =&gt; 1</span></span><br></pre></td></tr></table></figure>
+</div>
+<p>
+The body in <code>let</code> forms a context in which <code>x</code> was bound to 1,
+rather than 3 in global context.
+</p>
+</div>
+</div>
+
+<div id="outline-container-sec-2" class="outline-2">
+<h2 id="sec-2">Emacs Lexical-Binding Settings</h2>
+<div class="outline-text-2" id="text-2">
+<p>
+Lexical binding is a realtive new feature introduced into GNU Emacs,
+in version 24.1. Default GNU Emacs will not use lexical binding.
 </p>
 
 <p>
@@ -133,10 +155,7 @@ So,
 </p>
 <div class="org-src-container">
 
-<figure class="highlight"><table><tr><td class="code"><pre><span class="line">(default-value &apos;lexical-binding)
-;; =&gt; nil
-(lambda (x) (* x x))
-;; =&gt; (lambda (x) (* x x))</span><br></pre></td></tr></table></figure>
+<figure class="highlight lisp"><table><tr><td class="code"><pre><span class="line"><span class="list">(<span class="keyword">default-value</span> <span class="quoted">&apos;lexical-binding</span>)</span></span><br><span class="line"><span class="comment">;; =&gt; nil</span></span><br><span class="line"><span class="list">(<span class="keyword">lambda</span> <span class="list">(<span class="keyword">x</span>)</span> <span class="list">(<span class="keyword">*</span> x x)</span>)</span></span><br><span class="line"><span class="comment">;; =&gt; (lambda (x) (* x x))</span></span><br></pre></td></tr></table></figure>
 </div>
 
 <p>
@@ -161,12 +180,12 @@ line of `.el` files to force a lexical-binding context. e.g.
 </div>
 </div>
 
-<div style="font-size: 14px;padding: 5px;line-height: 20px;border: 1px solid;"><a href="javascript: editAtGithub();" target="_blank" rel="external">Edit Me at Github</a> - <a href="javascript: editAtGithub(true)" target="_blank" rel="external">Org Source</a> - Last Updated 2016-11-16 &#x4E09; 10:18.<br>Render by <a href="https://github.com/CodeFalling/hexo-renderer-org" target="_blank" rel="external">hexo-renderer-org</a> with <a href="http://www.gnu.org/software/emacs/" target="_blank" rel="external">Emacs</a> 25.1.1 (<a href="http://orgmode.org" target="_blank" rel="external">Org</a> mode 8.2.10)</div>
+<div style="font-size: 14px;padding: 5px;line-height: 20px;border: 1px solid;"><a href="javascript: editAtGithub();" target="_blank" rel="external">Edit Me at Github</a> - <a href="javascript: editAtGithub(true)" target="_blank" rel="external">Org Source</a> - Last Updated 2016-11-28 &#x4E00; 12:44.<br>Render by <a href="https://github.com/CodeFalling/hexo-renderer-org" target="_blank" rel="external">hexo-renderer-org</a> with <a href="http://www.gnu.org/software/emacs/" target="_blank" rel="external">Emacs</a> 25.1.1 (<a href="http://orgmode.org" target="_blank" rel="external">Org</a> mode 8.2.10)</div>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://cmal.github.io/2016/11/07/emacs/closure/" data-id="ciw1l23av000578s6hjcnad84" class="article-share-link">Share</a>
+      <a data-url="http://cmal.github.io/2016/11/07/emacs/closure/" data-id="ciw1ld6ms0004ess6whaxcan5" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Emacs/">Emacs</a></li></ul>
@@ -177,19 +196,10 @@ line of `.el` files to force a lexical-binding context. e.g.
     
 <nav id="article-nav">
   
-    <a href="/2016/11/07/emacs/fboundp/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Newer</strong>
-      <div class="article-nav-title">
-        
-          Use ~fboundp~ to check whether a symbol bound to a function
-        
-      </div>
-    </a>
   
-  
-    <a href="/2016/11/06/clojure/lambda-vs-literal-fn/" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="/2016/11/07/emacs/fboundp/" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Older</strong>
-      <div class="article-nav-title">Differences Between Lambda functions and literal functions</div>
+      <div class="article-nav-title">Use ~fboundp~ to check whether a symbol bound to a function</div>
     </a>
   
 </nav>
@@ -247,11 +257,11 @@ line of `.el` files to force a lexical-binding context. e.g.
       <ul>
         
           <li>
-            <a href="/2016/11/07/emacs/fboundp/">Use ~fboundp~ to check whether a symbol bound to a function</a>
+            <a href="/2016/11/07/emacs/closure/">Closure in Elisp, Lexical Binding After Emacs 24.1</a>
           </li>
         
           <li>
-            <a href="/2016/11/07/emacs/closure/">Closure in Elisp, Lexical Binding After Emacs 24.1</a>
+            <a href="/2016/11/07/emacs/fboundp/">Use ~fboundp~ to check whether a symbol bound to a function</a>
           </li>
         
           <li>

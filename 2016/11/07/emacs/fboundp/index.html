@@ -17,7 +17,7 @@
     var url_parts = document.location.pathname.split(&apos;/&apos;);
     var postname = url_parts[url_parts.length - 2];
     if(url_parts.length == 3){ // is a page(wiki about">
-<meta property="og:updated_time" content="2016-11-16T02:15:01.000Z">
+<meta property="og:updated_time" content="2016-11-28T04:40:25.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Use ~fboundp~ to check whether a symbol bound to a function">
 <meta name="twitter:description" content="function editAtGithub(isRaw){
@@ -138,27 +138,17 @@ Look at the example below:
 </p>
 <div class="org-src-container">
 
-<figure class="highlight"><table><tr><td class="code"><pre><span class="line">(defun foo (x) x)
-;; =&gt; foo
-(fboundp &apos;foo)
-;; =&gt; t
-(foo 1)
-;; =&gt; 1
-(fmakunbound &apos;foo) ;; fmakunbound will unbound a symbol
-;; =&gt; foo
-(fboundp &apos;foo)
-;; =&gt; nil
-(foo 1) ;; error</span><br></pre></td></tr></table></figure>
+<figure class="highlight lisp"><table><tr><td class="code"><pre><span class="line"><span class="list">(<span class="keyword">defun</span> foo <span class="list">(<span class="keyword">x</span>)</span> x)</span></span><br><span class="line"><span class="comment">;; =&gt; foo</span></span><br><span class="line"><span class="list">(<span class="keyword">fboundp</span> <span class="quoted">&apos;foo</span>)</span></span><br><span class="line"><span class="comment">;; =&gt; t</span></span><br><span class="line"><span class="list">(<span class="keyword">foo</span> <span class="number">1</span>)</span></span><br><span class="line"><span class="comment">;; =&gt; 1</span></span><br><span class="line"><span class="list">(<span class="keyword">fmakunbound</span> <span class="quoted">&apos;foo</span>)</span> <span class="comment">;; fmakunbound will unbound a symbol</span></span><br><span class="line"><span class="comment">;; =&gt; foo</span></span><br><span class="line"><span class="list">(<span class="keyword">fboundp</span> <span class="quoted">&apos;foo</span>)</span></span><br><span class="line"><span class="comment">;; =&gt; nil</span></span><br><span class="line"><span class="list">(<span class="keyword">foo</span> <span class="number">1</span>)</span> <span class="comment">;; error</span></span><br></pre></td></tr></table></figure>
 </div>
 </div>
 </div>
 
-<div style="font-size: 14px;padding: 5px;line-height: 20px;border: 1px solid;"><a href="javascript: editAtGithub();" target="_blank" rel="external">Edit Me at Github</a> - <a href="javascript: editAtGithub(true)" target="_blank" rel="external">Org Source</a> - Last Updated 2016-11-16 &#x4E09; 10:15.<br>Render by <a href="https://github.com/CodeFalling/hexo-renderer-org" target="_blank" rel="external">hexo-renderer-org</a> with <a href="http://www.gnu.org/software/emacs/" target="_blank" rel="external">Emacs</a> 25.1.1 (<a href="http://orgmode.org" target="_blank" rel="external">Org</a> mode 8.2.10)</div>
+<div style="font-size: 14px;padding: 5px;line-height: 20px;border: 1px solid;"><a href="javascript: editAtGithub();" target="_blank" rel="external">Edit Me at Github</a> - <a href="javascript: editAtGithub(true)" target="_blank" rel="external">Org Source</a> - Last Updated 2016-11-28 &#x4E00; 12:40.<br>Render by <a href="https://github.com/CodeFalling/hexo-renderer-org" target="_blank" rel="external">hexo-renderer-org</a> with <a href="http://www.gnu.org/software/emacs/" target="_blank" rel="external">Emacs</a> 25.1.1 (<a href="http://orgmode.org" target="_blank" rel="external">Org</a> mode 8.2.10)</div>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://cmal.github.io/2016/11/07/emacs/fboundp/" data-id="ciw1l23at000478s6zyi9j9tv" class="article-share-link">Share</a>
+      <a data-url="http://cmal.github.io/2016/11/07/emacs/fboundp/" data-id="ciw1ld6mw0005ess68y41atu2" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Emacs/">Emacs</a></li></ul>
@@ -169,10 +159,19 @@ Look at the example below:
     
 <nav id="article-nav">
   
+    <a href="/2016/11/07/emacs/closure/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          Closure in Elisp, Lexical Binding After Emacs 24.1
+        
+      </div>
+    </a>
   
-    <a href="/2016/11/07/emacs/closure/" id="article-nav-older" class="article-nav-link-wrap">
+  
+    <a href="/2016/11/06/clojure/lambda-vs-literal-fn/" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Older</strong>
-      <div class="article-nav-title">Closure in Elisp, Lexical Binding After Emacs 24.1</div>
+      <div class="article-nav-title">Differences Between Lambda functions and literal functions</div>
     </a>
   
 </nav>
@@ -230,11 +229,11 @@ Look at the example below:
       <ul>
         
           <li>
-            <a href="/2016/11/07/emacs/fboundp/">Use ~fboundp~ to check whether a symbol bound to a function</a>
+            <a href="/2016/11/07/emacs/closure/">Closure in Elisp, Lexical Binding After Emacs 24.1</a>
           </li>
         
           <li>
-            <a href="/2016/11/07/emacs/closure/">Closure in Elisp, Lexical Binding After Emacs 24.1</a>
+            <a href="/2016/11/07/emacs/fboundp/">Use ~fboundp~ to check whether a symbol bound to a function</a>
           </li>
         
           <li>
