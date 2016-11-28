@@ -17,7 +17,7 @@
     var url_parts = document.location.pathname.split(&apos;/&apos;);
     var postname = url_parts[url_parts.length - 2];
     if(url_parts.length == 3){ // is a page(wiki about">
-<meta property="og:updated_time" content="2016-11-28T04:44:24.000Z">
+<meta property="og:updated_time" content="2016-11-28T04:58:34.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Closure in Elisp, Lexical Binding After Emacs 24.1">
 <meta name="twitter:description" content="function editAtGithub(isRaw){
@@ -164,10 +164,7 @@ lexical-binding. Lexical binding makes lambda function form a closure.
 </p>
 <div class="org-src-container">
 
-<figure class="highlight"><table><tr><td class="code"><pre><span class="line">(setq lexical-binding t)
-;; =&gt; t
-(lambda (x) (* x x))
-;; =&gt; (closure (t) (x) (* x x))</span><br></pre></td></tr></table></figure>
+<figure class="highlight lisp"><table><tr><td class="code"><pre><span class="line"><span class="list">(<span class="keyword">setq</span> lexical-binding <span class="literal">t</span>)</span></span><br><span class="line"><span class="comment">;; =&gt; t</span></span><br><span class="line"><span class="list">(<span class="keyword">lambda</span> <span class="list">(<span class="keyword">x</span>)</span> <span class="list">(<span class="keyword">*</span> x x)</span>)</span></span><br><span class="line"><span class="comment">;; =&gt; (closure (t) (x) (* x x))</span></span><br></pre></td></tr></table></figure>
 </div>
 
 <p>
@@ -180,12 +177,12 @@ line of `.el` files to force a lexical-binding context. e.g.
 </div>
 </div>
 
-<div style="font-size: 14px;padding: 5px;line-height: 20px;border: 1px solid;"><a href="javascript: editAtGithub();" target="_blank" rel="external">Edit Me at Github</a> - <a href="javascript: editAtGithub(true)" target="_blank" rel="external">Org Source</a> - Last Updated 2016-11-28 &#x4E00; 12:44.<br>Render by <a href="https://github.com/CodeFalling/hexo-renderer-org" target="_blank" rel="external">hexo-renderer-org</a> with <a href="http://www.gnu.org/software/emacs/" target="_blank" rel="external">Emacs</a> 25.1.1 (<a href="http://orgmode.org" target="_blank" rel="external">Org</a> mode 8.2.10)</div>
+<div style="font-size: 14px;padding: 5px;line-height: 20px;border: 1px solid;"><a href="javascript: editAtGithub();" target="_blank" rel="external">Edit Me at Github</a> - <a href="javascript: editAtGithub(true)" target="_blank" rel="external">Org Source</a> - Last Updated 2016-11-28 &#x4E00; 12:58.<br>Render by <a href="https://github.com/CodeFalling/hexo-renderer-org" target="_blank" rel="external">hexo-renderer-org</a> with <a href="http://www.gnu.org/software/emacs/" target="_blank" rel="external">Emacs</a> 25.1.1 (<a href="http://orgmode.org" target="_blank" rel="external">Org</a> mode 8.2.10)</div>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://cmal.github.io/2016/11/07/emacs/closure/" data-id="ciw1lpq4300049ds6dynxldvt" class="article-share-link">Share</a>
+      <a data-url="http://cmal.github.io/2016/11/07/emacs/closure/" data-id="ciw1lup1a0003dss6mlgovnsk" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Emacs/">Emacs</a></li></ul>
