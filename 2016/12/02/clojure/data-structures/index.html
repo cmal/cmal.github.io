@@ -8,22 +8,22 @@
   <meta name="description" content="function editAtGithub(isRaw){
     var url_parts = document.location.pathname.split(&apos;/&apos;);
     var postname = url_parts[url_parts.length - 2];
-    if(url_parts.length == 3){ // is a page(wiki about e">
+    if(url_parts.length == 3){ // is a page(wiki about">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Differences Between Lambda functions and literal functions">
-<meta property="og:url" content="http://cmal.github.io/2016/11/06/clojure/lambda-vs-literal-fn/index.html">
+<meta property="og:url" content="http://cmal.github.io/2016/12/02/clojure/data-structures/index.html">
 <meta property="og:site_name" content="Learning Clojure">
 <meta property="og:description" content="function editAtGithub(isRaw){
     var url_parts = document.location.pathname.split(&apos;/&apos;);
     var postname = url_parts[url_parts.length - 2];
-    if(url_parts.length == 3){ // is a page(wiki about e">
-<meta property="og:updated_time" content="2016-11-06T16:09:55.000Z">
+    if(url_parts.length == 3){ // is a page(wiki about">
+<meta property="og:updated_time" content="2016-12-02T02:13:45.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Differences Between Lambda functions and literal functions">
 <meta name="twitter:description" content="function editAtGithub(isRaw){
     var url_parts = document.location.pathname.split(&apos;/&apos;);
     var postname = url_parts[url_parts.length - 2];
-    if(url_parts.length == 3){ // is a page(wiki about e">
+    if(url_parts.length == 3){ // is a page(wiki about">
   
     <link rel="alternate" href="/atom.xml" title="Learning Clojure" type="application/atom+xml">
   
@@ -76,10 +76,10 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main"><article id="post-clojure/lambda-vs-literal-fn" class="article article-type-post" itemscope itemprop="blogPost">
+        <section id="main"><article id="post-clojure/data-structures" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/2016/11/06/clojure/lambda-vs-literal-fn/" class="article-date">
-  <time datetime="2016-11-06T15:00:00.000Z" itemprop="datePublished">2016-11-06</time>
+    <a href="/2016/12/02/clojure/data-structures/" class="article-date">
+  <time datetime="2016-12-02T02:00:00.000Z" itemprop="datePublished">2016-12-02</time>
 </a>
     
   <div class="article-category">
@@ -119,79 +119,23 @@
     window.open(url);
   }
 </script>
+
 <div id="outline-container-sec-1" class="outline-2">
-<h2 id="sec-1">Differences</h2>
+<h2 id="sec-1">Persistent Structures</h2>
 <div class="outline-text-2" id="text-1">
 <p>
-There are a few (as far as I know) differences between lambda functions (<code>fn</code>) and literal functions (<code>#(...)</code>):
+Several persistent data structures&apos; finding time is O(log(32,n)),
+because of the internal storage strategy of Clojure.
 </p>
-
-<ol class="org-ol">
-<li>By definition, literal functions are the reader form(or sugar) of Clojure compiler, but lambda functions are not.
-
-<p>
-So <code>read-string</code> can be applied to literal functions.
-</p>
-<div class="org-src-container">
-
-<figure class="highlight clojure"><table><tr><td class="code"><pre><span class="line"><span class="list">(<span class="keyword">read-string</span> <span class="string">&quot;#(inc %)&quot;</span>)</span></span><br><span class="line"><span class="comment">;; =&gt; (fn* [p1__37093#] (inc p1__37093#))</span></span><br></pre></td></tr></table></figure>
-</div>
-</li>
-
-<li><a href="../destructuring_assignment/#sec-1-3">Last time</a> I say that <code>fn</code> implies a <code>do</code> in its body.
-</li>
-</ol>
-<a id="more"></a>
-
-<div class="org-src-container">
-
-<figure class="highlight clojure"><table><tr><td class="code"><pre><span class="line"><span class="list">(<span class="list">(<span class="keyword"><span class="built_in">fn</span></span> <span class="collection">[x]</span></span><br><span class="line">    <span class="list">(<span class="keyword"><span class="built_in">prn</span></span> x)</span></span><br><span class="line">    x)</span> <span class="number">3</span>)</span></span><br></pre></td></tr></table></figure>
-</div>
-<p>
-but literal functions must explicitly use <code>do</code> to wrap the two actions:
-</p>
-<div class="org-src-container">
-
-<figure class="highlight clojure"><table><tr><td class="code"><pre><span class="line"><span class="list">(<span class="keyword">#</span><span class="list">(<span class="keyword"><span class="built_in">do</span></span> <span class="list">(<span class="keyword"><span class="built_in">prn</span></span> %)</span></span><br><span class="line">       %)</span> <span class="number">3</span>)</span></span><br></pre></td></tr></table></figure>
-</div>
-
-<ol class="org-ol">
-<li>Literal functions cannot explicitly do arity variadic:
-
-<p>
-<code>fn</code> can do this:
-</p>
-<div class="org-src-container">
-
-<figure class="highlight clojure"><table><tr><td class="code"><pre><span class="line"><span class="list">(<span class="keyword"><span class="built_in">fn</span></span> <span class="collection">[]</span></span><br><span class="line">  <span class="list">(<span class="keyword"><span class="built_in">do</span></span> sth1...)</span></span><br><span class="line">  <span class="collection">[x]</span></span><br><span class="line">  <span class="list">(<span class="keyword"><span class="built_in">do</span></span> sth2...)</span></span><br><span class="line">  <span class="collection">[x y]</span></span><br><span class="line">  <span class="list">(<span class="keyword"><span class="built_in">do</span></span> sth3...)</span></span><br><span class="line">  <span class="collection">[x y &amp; rest]</span></span><br><span class="line">  <span class="list">(<span class="keyword"><span class="built_in">do</span></span> sth4...)</span>)</span></span><br></pre></td></tr></table></figure>
-</div>
-<p>
-but literal functions can not.
-However, literal functions can define a variadic function by using <code>%&amp;</code>:
-</p>
-<div class="org-src-container">
-
-<figure class="highlight"><table><tr><td class="code"><pre><span class="line">#(- % (apply + %&amp;))</span><br><span class="line">;; this is exactly like</span><br><span class="line">(fn [x &amp; rest]</span><br><span class="line">  (- x (apply + rest)))</span><br></pre></td></tr></table></figure>
-</div>
-</li>
-
-<li>Literal functions cannot be nested:
-
-<div class="org-src-container">
-
-<figure class="highlight"><table><tr><td class="code"><pre><span class="line">;; You CANNOT do this:</span><br><span class="line">#(#(inc %))</span><br><span class="line">;; but you can use nest lambda functions:</span><br><span class="line">(fn [x] (fn [y] (inc y)))</span><br></pre></td></tr></table></figure>
-</div>
-</li>
-</ol>
 </div>
 </div>
 
-<div style="font-size: 14px;padding: 5px;line-height: 20px;border: 1px solid;"><a href="javascript: editAtGithub();" target="_blank" rel="external">Edit Me at Github</a> - <a href="javascript: editAtGithub(true)" target="_blank" rel="external">Org Source</a> - Last Updated 2016-11-07 &#x4E00; 00:09.<br>Render by <a href="https://github.com/CodeFalling/hexo-renderer-org" target="_blank" rel="external">hexo-renderer-org</a> with <a href="http://www.gnu.org/software/emacs/" target="_blank" rel="external">Emacs</a> 25.1.1 (<a href="http://orgmode.org" target="_blank" rel="external">Org</a> mode 8.2.10)</div>
+<div style="font-size: 14px;padding: 5px;line-height: 20px;border: 1px solid;"><a href="javascript: editAtGithub();" target="_blank" rel="external">Edit Me at Github</a> - <a href="javascript: editAtGithub(true)" target="_blank" rel="external">Org Source</a> - Last Updated 2016-12-02 &#x4E94; 10:13.<br>Render by <a href="https://github.com/CodeFalling/hexo-renderer-org" target="_blank" rel="external">hexo-renderer-org</a> with <a href="http://www.gnu.org/software/emacs/" target="_blank" rel="external">Emacs</a> 25.1.1 (<a href="http://orgmode.org" target="_blank" rel="external">Org</a> mode 8.2.10)</div>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://cmal.github.io/2016/11/06/clojure/lambda-vs-literal-fn/" data-id="ciw1m3tvv00046ls61lfoz920" class="article-share-link">Share</a>
+      <a data-url="http://cmal.github.io/2016/12/02/clojure/data-structures/" data-id="ciwbv6ew10000brs6inq2gss0" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ClojureBasics/">ClojureBasics</a></li></ul>
@@ -202,19 +146,10 @@ However, literal functions can define a variadic function by using <code>%&amp;<
     
 <nav id="article-nav">
   
-    <a href="/2016/11/07/emacs/fboundp/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Newer</strong>
-      <div class="article-nav-title">
-        
-          Use ~fboundp~ to check whether a symbol bound to a function
-        
-      </div>
-    </a>
   
-  
-    <a href="/2016/11/06/clojure/destructuring-assignment/" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="/2016/12/02/clojure/slack/" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Older</strong>
-      <div class="article-nav-title">Clojure Destructuring Assignment</div>
+      <div class="article-nav-title">Discusses in Slack re-frame channel</div>
     </a>
   
 </nav>
