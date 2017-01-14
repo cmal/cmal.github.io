@@ -134,140 +134,10 @@ In Quartzite, we define <code>jobs</code> that would be <code>triggered</code> o
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://cmal.github.io/2017/01/14/clojure/quartzite-pitfalls/" data-id="cixwwfviv000668s6lmghwhf0" class="article-share-link">Share</a>
+      <a data-url="http://cmal.github.io/2017/01/14/clojure/quartzite-pitfalls/" data-id="cixwwjd730007ljs67o5cmjwx" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ClojureLibs/">ClojureLibs</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-clojure/slack" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2016/12/05/clojure/slack/" class="article-date">
-  <time datetime="2016-12-05T09:00:00.000Z" itemprop="datePublished">2016-12-05</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/clojurescript/">clojurescript</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/12/05/clojure/slack/">Discusses in Slack re-frame channel</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        
-
-<script>
-  function editAtGithub(isRaw){
-    var url_parts = document.location.pathname.split('/');
-    var postname = url_parts[url_parts.length - 2];
-    if(url_parts.length == 3){ // is a page(wiki about etc)
-      postname = postname + '/index.org';
-    }else{
-      postname = '_posts/' + postname + '.org';
-    }
-    var url = 'https://github.com/cmal/learning_clojure/tree/source/source/' + postname;
-    if(isRaw)
-      url = 'https://raw.githubusercontent.com/cmal/learning_clojure/source/source/' + postname;
-    window.open(url);
-  }
-</script>
-<div class="org-src-container">
-
-<figure class="highlight markdown"><table><tr><td class="code"><pre><span class="line">cmal [10:22 PM]</span><br><span class="line">Hi, I found the reagent and re-frame todomvc both have some <span class="code">`:keys`</span> for <span class="code">`todo-item`</span>, but I dont know what the keys means.  I&apos;ve write the following code but the compiler keep warning me that <span class="code">`Every element in a seq should have a unique key`</span>. Where is the problem? Thanks!</span><br><span class="line"></span><br><span class="line"><span class="code">```</span></span><br><span class="line">(defn show-panel-child [id text]</span><br><span class="line">  [:div.show-panel-child</span><br><span class="line">   [:div.child-text</span><br><span class="line"><span class="code">    text]</span></span><br><span class="line">   [:div.child-delete</span><br><span class="line"><span class="code">    [re-com/md-icon-button</span></span><br><span class="line"><span class="code">     :md-icon-name &quot;zmdi-delete&quot;</span></span><br><span class="line"><span class="code">     :size :smaller</span></span><br><span class="line"><span class="code">     :on-click #(dispatch [:delete-show-panel-child id])</span></span><br><span class="line"><span class="code">    ]]]</span></span><br><span class="line">  )</span><br><span class="line"></span><br><span class="line">(defn show-panel []</span><br><span class="line">  [:div.show-panel</span><br><span class="line">   (let [children @(subscribe [:show-panel-child])]</span><br><span class="line"><span class="code">     (for [child children</span></span><br><span class="line"><span class="code">	   :let [id (:id child)</span></span><br><span class="line"><span class="code">		 text (:text child)</span></span><br><span class="line"><span class="code">		 div (show-panel-child id text)]]</span></span><br><span class="line"><span class="code">       ^{:key id}</span></span><br><span class="line"><span class="code">       [re-com/box</span></span><br><span class="line"><span class="code">	:child div</span></span><br><span class="line"><span class="code">	:style {</span></span><br><span class="line"><span class="code">		:background-color &quot;white&quot;</span></span><br><span class="line"><span class="code">		:margin-bottom &quot;10px&quot;</span></span><br><span class="line"><span class="code">		}])</span></span><br><span class="line"><span class="code">     )])</span></span><br><span class="line"><span class="code">```</span></span><br><span class="line"></span><br><span class="line">[10:23]</span><br><span class="line">the code of  <span class="code">`todo-item`</span> in <span class="code">`todomvc demo`</span>  is as follows:</span><br><span class="line"><span class="code">```</span></span><br><span class="line">(defn todo-item</span><br><span class="line">  []</span><br><span class="line">  (let [editing (reagent/atom false)]</span><br><span class="line"><span class="code">    (fn [{:keys [id done title]}]   ;;; &lt;=== this :keys</span></span><br><span class="line"><span class="code">      [:li {:class (str (when done &quot;completed &quot;)</span></span><br><span class="line"><span class="code">			(when @editing &quot;editing&quot;))}</span></span><br><span class="line"><span class="code">	[:div.view</span></span><br><span class="line"><span class="code">	  [:input.toggle</span></span><br><span class="line"><span class="code">	    {:type &quot;checkbox&quot;</span></span><br><span class="line"><span class="code">	     :checked done</span></span><br><span class="line"><span class="code">	     :on-change #(dispatch [:toggle-done id])}]</span></span><br><span class="line"><span class="code">	  [:label</span></span><br><span class="line"><span class="code">	    {:on-double-click #(reset! editing true)}</span></span><br><span class="line"><span class="code">	    title]</span></span><br><span class="line"><span class="code">	  [:button.destroy</span></span><br><span class="line"><span class="code">	    {:on-click #(dispatch [:delete-todo id])}]]</span></span><br><span class="line"><span class="code">	(when @editing</span></span><br><span class="line"><span class="code">	  [todo-input</span></span><br><span class="line"><span class="code">	    {:class &quot;edit&quot;</span></span><br><span class="line"><span class="code">	     :title title</span></span><br><span class="line"><span class="code">	     :on-save #(dispatch [:save id %])</span></span><br><span class="line"><span class="code">	     :on-stop #(reset! editing false)}])])))</span></span><br><span class="line"><span class="code">```</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">colin.yates [10:47 PM]</span><br><span class="line">@cmal are you sure <span class="code">`id`</span> is not nil? Also, calling <span class="code">`(show-panel-child id text)`</span> would be more performant as <span class="code">`[show-panel-child id text]`</span> at which point you might want to rename it to <span class="code">`panel-child`</span> :wink:. Try adding <span class="code">`(.log js/console (clj-&gt;js children))`</span> between the <span class="code">`for`</span> and the <span class="code">`let`</span>.</span><br><span class="line"></span><br><span class="line">[10:50]</span><br><span class="line">@cmal, ah, I think you are also confusing the use of <span class="code">`:keys`</span> when destructuring in Clojure and also React&#x2019;s requirement/wish that every child in a dynamic sequence has a unique <span class="code">`key`</span>. For reagent (the Clojure binding to React), you can provide the <span class="code">`key`</span> either as meta-data or as a <span class="code">`:key`</span> in the props map. So <span class="code">`^{:key id} [comp&#x2026;]`</span> is equivalent to <span class="code">`[comp {:key id} &#x2026;]`</span> (1/2)</span><br><span class="line"></span><br><span class="line">[10:51]</span><br><span class="line">@cmal - the <span class="code">`:keys`</span> in the todo example have nothing to do with React or reagent, but is simply a convenience Clojure provides called destructuring. If I have a map m of <span class="code">`{:a 1 :b 2 :c 3}`</span> then if I want to interrogate that map I can do either <span class="code">`(:a m)`</span> or <span class="code">`{:keys [a]}`</span> which creates a local var called <span class="code">`a`</span> and assigns it the value of <span class="code">`(:a m)`</span>. (2/2)</span><br><span class="line"></span><br><span class="line">[10:52]</span><br><span class="line">@cmal - http://clojure.org/guides/destructuring for more info</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="horizontal_rule">----------</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">cmal [3:42 PM]</span><br><span class="line">The following code is working now. This problem seems to be related to the <span class="code">`events.cljs`</span> not be auto re-compiled.</span><br><span class="line"><span class="horizontal_rule">----------- original question ----------</span></span><br><span class="line">Hi, Is this problem related to that I did not use <span class="code">`dispatch-sync`</span>? I have the following code and got an error of <span class="code">`:model in component &apos;input-text&apos;: Expected &apos;string|atom&apos;. Got &apos;{:query &quot;PE&quot;, :stockid &quot;600123.sh&quot;}&apos; `</span> after change the first two fields&apos; value and press &apos;Send Input ==&gt;&apos; button. My intent is to make :model filed to be &quot;600123.sh&quot; and dispatch a <span class="code">`[:send-input {:query &quot;PE&quot; :stockid &quot;600123.sh&quot;}]`</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="code">```</span></span><br><span class="line">(defn drawer-child []</span><br><span class="line">  (let [query (reagent/atom &quot;&quot;)</span><br><span class="line"><span class="code">	stockid (reagent/atom &quot;&quot;)]</span></span><br><span class="line"><span class="code">    (fn [{:keys [id label]}]</span></span><br><span class="line"><span class="code">      [re-com/v-box</span></span><br><span class="line"><span class="code">       ;; :div.drawer-child</span></span><br><span class="line"><span class="code">       :children</span></span><br><span class="line"><span class="code">       [[re-com/box</span></span><br><span class="line"><span class="code">	 :child</span></span><br><span class="line"><span class="code">	 [:div.drawer-child-title id]],</span></span><br><span class="line"><span class="code">	[re-com/box</span></span><br><span class="line"><span class="code">	 :child</span></span><br><span class="line"><span class="code">	 [re-com/single-dropdown</span></span><br><span class="line"><span class="code">	  :choices conf/home-choices</span></span><br><span class="line"><span class="code">	  :model nil</span></span><br><span class="line"><span class="code">	  :placeholder &quot;Have a choice...&quot;</span></span><br><span class="line"><span class="code">	  :on-change #(reset! query %)]  ;; &lt;== reset query</span></span><br><span class="line"><span class="code">	 :style</span></span><br><span class="line"><span class="code">	 {</span></span><br><span class="line"><span class="code">	  :padding &quot;0 10px&quot;</span></span><br><span class="line"><span class="code">	  }],</span></span><br><span class="line"><span class="code">	[re-com/box</span></span><br><span class="line"><span class="code">	 :child</span></span><br><span class="line"><span class="code">	 [:div.stockid-input</span></span><br><span class="line"><span class="code">	  [:div.stockid-label &quot;Secucode:&quot;]</span></span><br><span class="line"><span class="code">	  [re-com/input-text</span></span><br><span class="line"><span class="code">	   :class (log @query @stockid)</span></span><br><span class="line"><span class="code">	   :model stockid   ;; &lt;== Error on validating :model! My intent is to make it an atom of string, but got an hashmap. I don&apos;t know why.</span></span><br><span class="line"><span class="code">	   :on-change #(reset! stockid %)  ;; &lt;== reset stockid</span></span><br><span class="line"><span class="code">	   :placeholder &quot;600123.SH&quot;]]</span></span><br><span class="line"><span class="code">	 :style</span></span><br><span class="line"><span class="code">	 {</span></span><br><span class="line"><span class="code">	  :padding &quot;0 10px&quot;</span></span><br><span class="line"><span class="code">	  }],</span></span><br><span class="line"><span class="code">	;; send input button</span></span><br><span class="line"><span class="code">	[re-com/box</span></span><br><span class="line"><span class="code">	 :child</span></span><br><span class="line"><span class="code">	 [re-com/button</span></span><br><span class="line"><span class="code">	  :label &quot;Send Input ==&gt;&quot;</span></span><br><span class="line"><span class="code">	  :on-click #(dispatch</span></span><br><span class="line"><span class="code">		      [:send-input</span></span><br><span class="line"><span class="code">		       {:query @query</span></span><br><span class="line"><span class="code">			:stockid @stockid}])  ;; &lt;== dispatch an event, not work even use dispatch-sync</span></span><br><span class="line"><span class="code">	  :class &quot;btn-warning&quot;</span></span><br><span class="line"><span class="code">	  ]</span></span><br><span class="line"><span class="code">	 :style</span></span><br><span class="line"><span class="code">	 {</span></span><br><span class="line"><span class="code">	  :padding &quot;0 10px&quot;</span></span><br><span class="line"><span class="code">	  }],</span></span><br><span class="line"></span><br><span class="line"><span class="code">	]</span></span><br><span class="line"><span class="code">       :gap &quot;10px&quot;</span></span><br><span class="line"><span class="code">       ]</span></span><br><span class="line"><span class="code">      ))</span></span><br><span class="line">  )</span><br><span class="line"><span class="code">```</span></span><br><span class="line"></span><br><span class="line"><span class="horizontal_rule">---------------</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">cmal [12:58 AM]</span><br><span class="line">Hi, I&apos;ve encountered a strange problem now. I am currently using the reframe-template to build a demo site. I changed the value of <span class="code">`db/default-db`</span>,  and I re-run everything (lein figwheel dev, lein repl, chrome, even Emacs), but the app-db will not change.  If I try to <span class="code">`(dispatch-sync [:initialize-db])`</span> manually, the app-db still will not change. BUT when I re-edited(even not change the value of <span class="code">`db/default-db`</span>) the <span class="code">`db.cljs`</span> and save and then <span class="code">`(dispatch-sync [:initialize-db])`</span> manually the app-db CHANGED. BUT when I try to reload chrome page, and restart <span class="code">`lein figwheel dev`</span>,  the app-db get BACK to the original value. It is very strange for me because the original value of app-state or default-db is in no where of my code now! I&apos;ve tried this again and again and again, the app-db still remains the original value and will never change again except that I do the second <span class="code">`dispatch-sync`</span> thing above. I tried to get the value of <span class="code">`db/default-db`</span> in repl and found it remains the original value. Why? How can I deal with this problem? Thanks!</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">motor4ik [1:08 AM]</span><br><span class="line">where are you looking db value?</span><br><span class="line"></span><br><span class="line">cmal [1:08 AM]</span><br><span class="line">Even the compiled <span class="code">`db.js`</span> file is using a correct value.</span><br><span class="line"></span><br><span class="line">[1:08]</span><br><span class="line">reflisk</span><br><span class="line"></span><br><span class="line">[1:08]</span><br><span class="line">re-frisk</span><br><span class="line"></span><br><span class="line">motor4ik [1:09 AM]</span><br><span class="line">:slightly<span class="emphasis">_smiling_</span>face:</span><br><span class="line"></span><br><span class="line">cmal [1:09 AM]</span><br><span class="line">and repl</span><br><span class="line"></span><br><span class="line">motor4ik [1:10 AM]</span><br><span class="line">so you change db value and run figwheel but the value in re-frisk and repl is old?</span><br><span class="line"></span><br><span class="line">cmal [1:11 AM]</span><br><span class="line">no, repl&apos;s value is new now. I don&apos;t know why. But in re-frisk is still the old.</span><br><span class="line"></span><br><span class="line">motor4ik [1:12 AM]</span><br><span class="line">are you looking in the panel or separate browser&apos;s window?</span><br><span class="line"></span><br><span class="line">cmal [1:13 AM]</span><br><span class="line">I see, maybe a browser&apos;s cash rewrite the value to app-db</span><br><span class="line"></span><br><span class="line">motor4ik [1:13 AM]</span><br><span class="line">did you refresh page and reopen the re-frisk window?</span><br><span class="line"></span><br><span class="line">[1:13]</span><br><span class="line">yes. it&apos;s better to hot reload</span><br><span class="line"></span><br><span class="line">cmal [1:13 AM]</span><br><span class="line">I re-opened browser but does not clean the cache</span><br><span class="line"></span><br><span class="line">[1:13]</span><br><span class="line">I&apos;ll try that</span><br><span class="line"></span><br><span class="line">[1:14]</span><br><span class="line">bingo! that is the problem! thank you @motor4ik !</span><br><span class="line"></span><br><span class="line">motor4ik [1:16 AM]</span><br><span class="line">i think it can be confusing, i&apos;ll add in the todo list. because if you open re-frisk in separate window, and refresh the main app window, re-frisk window doesn&apos;t work anymore, i should make some tooltip for what</span><br><span class="line"></span><br><span class="line">cmal [1:20 AM]</span><br><span class="line">I think the problem confusing me is about the browser cache. Is the :app-db set on somewhere in browser cache? If not, no reason that I changed the code and restart the project but the app-db still the old. Only if the browser read the cache of app-db and then my code call some event to change the app-db based on the value cached so the new app-db is flushed. (edited)</span><br><span class="line"></span><br><span class="line">motor4ik [1:21 AM]</span><br><span class="line">where are you looking app-db in panel or separate window?</span><br><span class="line"></span><br><span class="line">cmal [1:24 AM]</span><br><span class="line">You mean panel or separate window of re-frisk? I am always using a seperate window. I&apos;ll try again and see whether the problem recur.</span><br><span class="line"></span><br><span class="line">motor4ik [1:25 AM]</span><br><span class="line">but. it doesn&apos;t matter, because the data in the app window, so you just have cached your application, re-frisk can&apos;t help here, ok, thank you</span><br><span class="line"></span><br><span class="line">cmal [1:30 AM]</span><br><span class="line">I am not doing cache. I tried again and found that the app did not cache the state, either. I just surmised that to happen. I wonder why  just now it works after I cleaned the cache. curious. (edited)</span><br><span class="line"></span><br><span class="line">[1:31]</span><br><span class="line">I am going to sleep, it is 01:30. Thank you today.</span><br><span class="line"></span><br><span class="line">motor4ik [1:40 AM]</span><br><span class="line">@cmal have a good sleep. sorry for my english, i mean browser cashed, not you :slightly<span class="emphasis">_smiling_</span>face:</span><br></pre></td></tr></table></figure>
-</div>
-
-<div style="font-size: 14px;padding: 5px;line-height: 20px;border: 1px solid;"><a href="javascript: editAtGithub();" target="_blank" rel="external">Edit Me at Github</a> - <a href="javascript: editAtGithub(true)" target="_blank" rel="external">Org Source</a> - Last Updated 2016-12-05 &#x4E00; 17:19.<br>Render by <a href="https://github.com/CodeFalling/hexo-renderer-org" target="_blank" rel="external">hexo-renderer-org</a> with <a href="http://www.gnu.org/software/emacs/" target="_blank" rel="external">Emacs</a> 25.1.1 (<a href="http://orgmode.org" target="_blank" rel="external">Org</a> mode 8.2.10)</div>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://cmal.github.io/2016/12/05/clojure/slack/" data-id="cixwwfvj1000968s65sqtqzva" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ClojureScript/">ClojureScript</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Re-frame/">Re-frame</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Reagent/">Reagent</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Slack/">Slack</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-clojure/circular-dependency" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2016/12/02/clojure/circular-dependency/" class="article-date">
-  <time datetime="2016-12-02T02:00:00.000Z" itemprop="datePublished">2016-12-02</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/clojure/">clojure</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/12/02/clojure/circular-dependency/">Solve Circular Denpendency in Clojure(Script)</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        
-
-<script>
-  function editAtGithub(isRaw){
-    var url_parts = document.location.pathname.split('/');
-    var postname = url_parts[url_parts.length - 2];
-    if(url_parts.length == 3){ // is a page(wiki about etc)
-      postname = postname + '/index.org';
-    }else{
-      postname = '_posts/' + postname + '.org';
-    }
-    var url = 'https://github.com/cmal/learning_clojure/tree/source/source/' + postname;
-    if(isRaw)
-      url = 'https://raw.githubusercontent.com/cmal/learning_clojure/source/source/' + postname;
-    window.open(url);
-  }
-</script>
-
-<div id="outline-container-sec-1" class="outline-2">
-<h2 id="sec-1">What is circular dependency in Clojure and ClojureScript</h2>
-</div>
-
-<div style="font-size: 14px;padding: 5px;line-height: 20px;border: 1px solid;"><a href="javascript: editAtGithub();" target="_blank" rel="external">Edit Me at Github</a> - <a href="javascript: editAtGithub(true)" target="_blank" rel="external">Org Source</a> - Last Updated 2016-12-08 &#x56DB; 13:44.<br>Render by <a href="https://github.com/CodeFalling/hexo-renderer-org" target="_blank" rel="external">hexo-renderer-org</a> with <a href="http://www.gnu.org/software/emacs/" target="_blank" rel="external">Emacs</a> 25.1.1 (<a href="http://orgmode.org" target="_blank" rel="external">Org</a> mode 8.2.10)</div>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://cmal.github.io/2016/12/02/clojure/circular-dependency/" data-id="cixwwfvio000268s6qetm18pr" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ClojureBasics/">ClojureBasics</a></li></ul>
 
     </footer>
   </div>
@@ -335,7 +205,7 @@ because of the internal storage strategy of Clojure.
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://cmal.github.io/2016/12/02/clojure/data-structures/" data-id="cixwwfvip000368s6glpjo0s8" class="article-share-link">Share</a>
+      <a data-url="http://cmal.github.io/2016/12/02/clojure/data-structures/" data-id="cixwwjd6w0003ljs6ixt5k4b8" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ClojureBasics/">ClojureBasics</a></li></ul>
@@ -347,14 +217,14 @@ because of the internal storage strategy of Clojure.
 
 
   
-    <article id="post-emacs/fboundp" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-clojure/circular-dependency" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/2016/11/07/emacs/fboundp/" class="article-date">
-  <time datetime="2016-11-07T15:25:00.000Z" itemprop="datePublished">2016-11-07</time>
+    <a href="/2016/12/02/clojure/circular-dependency/" class="article-date">
+  <time datetime="2016-12-02T02:00:00.000Z" itemprop="datePublished">2016-12-02</time>
 </a>
     
   <div class="article-category">
-    <a class="article-category-link" href="/categories/emacs/">emacs</a>
+    <a class="article-category-link" href="/categories/clojure/">clojure</a>
   </div>
 
   </div>
@@ -365,7 +235,7 @@ because of the internal storage strategy of Clojure.
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2016/11/07/emacs/fboundp/">Use ~fboundp~ to check whether a symbol bound to a function</a>
+      <a class="article-title" href="/2016/12/02/clojure/circular-dependency/">Solve Circular Denpendency in Clojure(Script)</a>
     </h1>
   
 
@@ -392,37 +262,18 @@ because of the internal storage strategy of Clojure.
 </script>
 
 <div id="outline-container-sec-1" class="outline-2">
-<h2 id="sec-1">Bind function body to a symbol</h2>
-<div class="outline-text-2" id="text-1">
-<p>
-The <code>defun</code> in Emacs will bind a symbol to a function body, whereas
-the <code>fmakeunbound</code> will unbind a symbol from the bound function body.
-</p>
-
-<p>
-The <code>foundp</code> checks whether a symbol has already bound
-to a function.
-</p>
-
-<p>
-Look at the example below:
-</p>
-<div class="org-src-container">
-
-<figure class="highlight lisp"><table><tr><td class="code"><pre><span class="line"><span class="list">(<span class="keyword">defun</span> foo <span class="list">(<span class="keyword">x</span>)</span> x)</span></span><br><span class="line"><span class="comment">;; =&gt; foo</span></span><br><span class="line"><span class="list">(<span class="keyword">fboundp</span> <span class="quoted">&apos;foo</span>)</span></span><br><span class="line"><span class="comment">;; =&gt; t</span></span><br><span class="line"><span class="list">(<span class="keyword">foo</span> <span class="number">1</span>)</span></span><br><span class="line"><span class="comment">;; =&gt; 1</span></span><br><span class="line"><span class="list">(<span class="keyword">fmakunbound</span> <span class="quoted">&apos;foo</span>)</span> <span class="comment">;; fmakunbound will unbound a symbol</span></span><br><span class="line"><span class="comment">;; =&gt; foo</span></span><br><span class="line"><span class="list">(<span class="keyword">fboundp</span> <span class="quoted">&apos;foo</span>)</span></span><br><span class="line"><span class="comment">;; =&gt; nil</span></span><br><span class="line"><span class="list">(<span class="keyword">foo</span> <span class="number">1</span>)</span> <span class="comment">;; error</span></span><br></pre></td></tr></table></figure>
-</div>
-</div>
+<h2 id="sec-1">What is circular dependency in Clojure and ClojureScript</h2>
 </div>
 
-<div style="font-size: 14px;padding: 5px;line-height: 20px;border: 1px solid;"><a href="javascript: editAtGithub();" target="_blank" rel="external">Edit Me at Github</a> - <a href="javascript: editAtGithub(true)" target="_blank" rel="external">Org Source</a> - Last Updated 2016-11-28 &#x4E00; 12:40.<br>Render by <a href="https://github.com/CodeFalling/hexo-renderer-org" target="_blank" rel="external">hexo-renderer-org</a> with <a href="http://www.gnu.org/software/emacs/" target="_blank" rel="external">Emacs</a> 25.1.1 (<a href="http://orgmode.org" target="_blank" rel="external">Org</a> mode 8.2.10)</div>
+<div style="font-size: 14px;padding: 5px;line-height: 20px;border: 1px solid;"><a href="javascript: editAtGithub();" target="_blank" rel="external">Edit Me at Github</a> - <a href="javascript: editAtGithub(true)" target="_blank" rel="external">Org Source</a> - Last Updated 2016-12-08 &#x56DB; 13:44.<br>Render by <a href="https://github.com/CodeFalling/hexo-renderer-org" target="_blank" rel="external">hexo-renderer-org</a> with <a href="http://www.gnu.org/software/emacs/" target="_blank" rel="external">Emacs</a> 25.1.1 (<a href="http://orgmode.org" target="_blank" rel="external">Org</a> mode 8.2.10)</div>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://cmal.github.io/2016/11/07/emacs/fboundp/" data-id="cixwwfviw000768s6ty44bgpe" class="article-share-link">Share</a>
+      <a data-url="http://cmal.github.io/2016/12/02/clojure/circular-dependency/" data-id="cixwwjd6y0004ljs6pn3o4bg6" class="article-share-link">Share</a>
       
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Emacs/">Emacs</a></li></ul>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ClojureBasics/">ClojureBasics</a></li></ul>
 
     </footer>
   </div>
@@ -537,7 +388,91 @@ line of `.el` files to force a lexical-binding context. e.g.
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://cmal.github.io/2016/11/07/emacs/closure/" data-id="cixwwfvj0000868s6b2b5mqhg" class="article-share-link">Share</a>
+      <a data-url="http://cmal.github.io/2016/11/07/emacs/closure/" data-id="cixwwjd770008ljs6xsg243cd" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Emacs/">Emacs</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-emacs/fboundp" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2016/11/07/emacs/fboundp/" class="article-date">
+  <time datetime="2016-11-07T15:25:00.000Z" itemprop="datePublished">2016-11-07</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/emacs/">emacs</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/11/07/emacs/fboundp/">Use ~fboundp~ to check whether a symbol bound to a function</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        
+
+<script>
+  function editAtGithub(isRaw){
+    var url_parts = document.location.pathname.split('/');
+    var postname = url_parts[url_parts.length - 2];
+    if(url_parts.length == 3){ // is a page(wiki about etc)
+      postname = postname + '/index.org';
+    }else{
+      postname = '_posts/' + postname + '.org';
+    }
+    var url = 'https://github.com/cmal/learning_clojure/tree/source/source/' + postname;
+    if(isRaw)
+      url = 'https://raw.githubusercontent.com/cmal/learning_clojure/source/source/' + postname;
+    window.open(url);
+  }
+</script>
+
+<div id="outline-container-sec-1" class="outline-2">
+<h2 id="sec-1">Bind function body to a symbol</h2>
+<div class="outline-text-2" id="text-1">
+<p>
+The <code>defun</code> in Emacs will bind a symbol to a function body, whereas
+the <code>fmakeunbound</code> will unbind a symbol from the bound function body.
+</p>
+
+<p>
+The <code>foundp</code> checks whether a symbol has already bound
+to a function.
+</p>
+
+<p>
+Look at the example below:
+</p>
+<div class="org-src-container">
+
+<figure class="highlight lisp"><table><tr><td class="code"><pre><span class="line"><span class="list">(<span class="keyword">defun</span> foo <span class="list">(<span class="keyword">x</span>)</span> x)</span></span><br><span class="line"><span class="comment">;; =&gt; foo</span></span><br><span class="line"><span class="list">(<span class="keyword">fboundp</span> <span class="quoted">&apos;foo</span>)</span></span><br><span class="line"><span class="comment">;; =&gt; t</span></span><br><span class="line"><span class="list">(<span class="keyword">foo</span> <span class="number">1</span>)</span></span><br><span class="line"><span class="comment">;; =&gt; 1</span></span><br><span class="line"><span class="list">(<span class="keyword">fmakunbound</span> <span class="quoted">&apos;foo</span>)</span> <span class="comment">;; fmakunbound will unbound a symbol</span></span><br><span class="line"><span class="comment">;; =&gt; foo</span></span><br><span class="line"><span class="list">(<span class="keyword">fboundp</span> <span class="quoted">&apos;foo</span>)</span></span><br><span class="line"><span class="comment">;; =&gt; nil</span></span><br><span class="line"><span class="list">(<span class="keyword">foo</span> <span class="number">1</span>)</span> <span class="comment">;; error</span></span><br></pre></td></tr></table></figure>
+</div>
+</div>
+</div>
+
+<div style="font-size: 14px;padding: 5px;line-height: 20px;border: 1px solid;"><a href="javascript: editAtGithub();" target="_blank" rel="external">Edit Me at Github</a> - <a href="javascript: editAtGithub(true)" target="_blank" rel="external">Org Source</a> - Last Updated 2016-11-28 &#x4E00; 12:40.<br>Render by <a href="https://github.com/CodeFalling/hexo-renderer-org" target="_blank" rel="external">hexo-renderer-org</a> with <a href="http://www.gnu.org/software/emacs/" target="_blank" rel="external">Emacs</a> 25.1.1 (<a href="http://orgmode.org" target="_blank" rel="external">Org</a> mode 8.2.10)</div>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://cmal.github.io/2016/11/07/emacs/fboundp/" data-id="cixwwjd780009ljs6lou6ghz1" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Emacs/">Emacs</a></li></ul>
@@ -620,7 +555,7 @@ So <code>read-string</code> can be applied to literal functions.
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://cmal.github.io/2016/11/06/clojure/lambda-vs-literal-fn/" data-id="cixwwfvit000568s68vmaruzm" class="article-share-link">Share</a>
+      <a data-url="http://cmal.github.io/2016/11/06/clojure/lambda-vs-literal-fn/" data-id="cixwwjd710006ljs62chvpeqs" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ClojureBasics/">ClojureBasics</a></li></ul>
@@ -697,7 +632,7 @@ A simple example of Clojure&apos;s <code>let</code> assignment:
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://cmal.github.io/2016/11/06/clojure/destructuring-assignment/" data-id="cixwwfvir000468s6r0fdf4jd" class="article-share-link">Share</a>
+      <a data-url="http://cmal.github.io/2016/11/06/clojure/destructuring-assignment/" data-id="cixwwjd6z0005ljs6pq9ipgb3" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ClojureBasics/">ClojureBasics</a></li></ul>
@@ -718,7 +653,7 @@ A simple example of Clojure&apos;s <code>let</code> assignment:
   <div class="widget-wrap">
     <h3 class="widget-title">Categories</h3>
     <div class="widget">
-      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/clojure/">clojure</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/clojurescript/">clojurescript</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/emacs/">emacs</a></li></ul>
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/clojure/">clojure</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/emacs/">emacs</a></li></ul>
     </div>
   </div>
 
@@ -728,7 +663,7 @@ A simple example of Clojure&apos;s <code>let</code> assignment:
   <div class="widget-wrap">
     <h3 class="widget-title">Tags</h3>
     <div class="widget">
-      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/ClojureBasics/">ClojureBasics</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ClojureLibs/">ClojureLibs</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ClojureScript/">ClojureScript</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Emacs/">Emacs</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Re-frame/">Re-frame</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Reagent/">Reagent</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Slack/">Slack</a></li></ul>
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/ClojureBasics/">ClojureBasics</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ClojureLibs/">ClojureLibs</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Emacs/">Emacs</a></li></ul>
     </div>
   </div>
 
@@ -738,7 +673,7 @@ A simple example of Clojure&apos;s <code>let</code> assignment:
   <div class="widget-wrap">
     <h3 class="widget-title">Tag Cloud</h3>
     <div class="widget tagcloud">
-      <a href="/tags/ClojureBasics/" style="font-size: 20px;">ClojureBasics</a> <a href="/tags/ClojureLibs/" style="font-size: 10px;">ClojureLibs</a> <a href="/tags/ClojureScript/" style="font-size: 10px;">ClojureScript</a> <a href="/tags/Emacs/" style="font-size: 15px;">Emacs</a> <a href="/tags/Re-frame/" style="font-size: 10px;">Re-frame</a> <a href="/tags/Reagent/" style="font-size: 10px;">Reagent</a> <a href="/tags/Slack/" style="font-size: 10px;">Slack</a>
+      <a href="/tags/ClojureBasics/" style="font-size: 20px;">ClojureBasics</a> <a href="/tags/ClojureLibs/" style="font-size: 10px;">ClojureLibs</a> <a href="/tags/Emacs/" style="font-size: 15px;">Emacs</a>
     </div>
   </div>
 
@@ -764,7 +699,7 @@ A simple example of Clojure&apos;s <code>let</code> assignment:
           </li>
         
           <li>
-            <a href="/2016/12/05/clojure/slack/">Discusses in Slack re-frame channel</a>
+            <a href="/2016/12/02/clojure/data-structures/">Differences Between Lambda functions and literal functions</a>
           </li>
         
           <li>
@@ -772,7 +707,7 @@ A simple example of Clojure&apos;s <code>let</code> assignment:
           </li>
         
           <li>
-            <a href="/2016/12/02/clojure/data-structures/">Differences Between Lambda functions and literal functions</a>
+            <a href="/2016/11/07/emacs/closure/">Closure in Elisp, Lexical Binding After Emacs 24.1</a>
           </li>
         
           <li>
