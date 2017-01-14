@@ -3,27 +3,27 @@
 <head>
   <meta charset="utf-8">
   
-  <title>Use ~fboundp~ to check whether a symbol bound to a function | Learning Clojure</title>
+  <title>Common Pitfalls of Quartzite | Learning Clojure</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="function editAtGithub(isRaw){
     var url_parts = document.location.pathname.split(&apos;/&apos;);
     var postname = url_parts[url_parts.length - 2];
-    if(url_parts.length == 3){ // is a page(wiki about">
+    if(url_parts.length == 3){ // is a page(wiki about e">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Use ~fboundp~ to check whether a symbol bound to a function">
-<meta property="og:url" content="http://cmal.github.io/2016/11/07/emacs/fboundp/index.html">
+<meta property="og:title" content="Common Pitfalls of Quartzite">
+<meta property="og:url" content="http://cmal.github.io/2016/11/06/clojure/quartzite-pitfalls/index.html">
 <meta property="og:site_name" content="Learning Clojure">
 <meta property="og:description" content="function editAtGithub(isRaw){
     var url_parts = document.location.pathname.split(&apos;/&apos;);
     var postname = url_parts[url_parts.length - 2];
-    if(url_parts.length == 3){ // is a page(wiki about">
-<meta property="og:updated_time" content="2016-11-28T04:40:25.000Z">
+    if(url_parts.length == 3){ // is a page(wiki about e">
+<meta property="og:updated_time" content="2017-01-14T07:09:32.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Use ~fboundp~ to check whether a symbol bound to a function">
+<meta name="twitter:title" content="Common Pitfalls of Quartzite">
 <meta name="twitter:description" content="function editAtGithub(isRaw){
     var url_parts = document.location.pathname.split(&apos;/&apos;);
     var postname = url_parts[url_parts.length - 2];
-    if(url_parts.length == 3){ // is a page(wiki about">
+    if(url_parts.length == 3){ // is a page(wiki about e">
   
     <link rel="alternate" href="/atom.xml" title="Learning Clojure" type="application/atom+xml">
   
@@ -76,14 +76,14 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main"><article id="post-emacs/fboundp" class="article article-type-post" itemscope itemprop="blogPost">
+        <section id="main"><article id="post-clojure/quartzite-pitfalls" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/2016/11/07/emacs/fboundp/" class="article-date">
-  <time datetime="2016-11-07T15:25:00.000Z" itemprop="datePublished">2016-11-07</time>
+    <a href="/2016/11/06/clojure/quartzite-pitfalls/" class="article-date">
+  <time datetime="2016-11-06T14:00:00.000Z" itemprop="datePublished">2016-11-06</time>
 </a>
     
   <div class="article-category">
-    <a class="article-category-link" href="/categories/emacs/">emacs</a>
+    <a class="article-category-link" href="/categories/clojure/">clojure</a>
   </div>
 
   </div>
@@ -94,7 +94,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      Use ~fboundp~ to check whether a symbol bound to a function
+      Common Pitfalls of Quartzite
     </h1>
   
 
@@ -121,37 +121,87 @@
 </script>
 
 <div id="outline-container-sec-1" class="outline-2">
-<h2 id="sec-1">Bind function body to a symbol</h2>
+<h2 id="sec-1">Quartzite</h2>
 <div class="outline-text-2" id="text-1">
 <p>
-The <code>defun</code> in Emacs will bind a symbol to a function body, whereas
-the <code>fmakeunbound</code> will unbind a symbol from the bound function body.
+When using Quartzite to scheduling your jobs, first you should read its <a href="http://clojurequartz.info/" target="_blank" rel="external">docs</a>.
 </p>
 
 <p>
-The <code>foundp</code> checks whether a symbol has already bound
-to a function.
+However, there are things that doesn&apos;t clearly described. Here we will talk some of the things which are useful but not covered by the docs.
 </p>
 
 <p>
-Look at the example below:
+In Quartzite, we define <code>jobs</code> that would be <code>triggered</code> on a defined <code>scheduler</code>. So we define described jobs and triggers in some scheduler to arrange them.
 </p>
-<div class="org-src-container">
-
-<figure class="highlight lisp"><table><tr><td class="code"><pre><span class="line"><span class="list">(<span class="keyword">defun</span> foo <span class="list">(<span class="keyword">x</span>)</span> x)</span></span><br><span class="line"><span class="comment">;; =&gt; foo</span></span><br><span class="line"><span class="list">(<span class="keyword">fboundp</span> <span class="quoted">&apos;foo</span>)</span></span><br><span class="line"><span class="comment">;; =&gt; t</span></span><br><span class="line"><span class="list">(<span class="keyword">foo</span> <span class="number">1</span>)</span></span><br><span class="line"><span class="comment">;; =&gt; 1</span></span><br><span class="line"><span class="list">(<span class="keyword">fmakunbound</span> <span class="quoted">&apos;foo</span>)</span> <span class="comment">;; fmakunbound will unbound a symbol</span></span><br><span class="line"><span class="comment">;; =&gt; foo</span></span><br><span class="line"><span class="list">(<span class="keyword">fboundp</span> <span class="quoted">&apos;foo</span>)</span></span><br><span class="line"><span class="comment">;; =&gt; nil</span></span><br><span class="line"><span class="list">(<span class="keyword">foo</span> <span class="number">1</span>)</span> <span class="comment">;; error</span></span><br></pre></td></tr></table></figure>
-</div>
-</div>
 </div>
 
-<div style="font-size: 14px;padding: 5px;line-height: 20px;border: 1px solid;"><a href="javascript: editAtGithub();" target="_blank" rel="external">Edit Me at Github</a> - <a href="javascript: editAtGithub(true)" target="_blank" rel="external">Org Source</a> - Last Updated 2016-11-28 &#x4E00; 12:40.<br>Render by <a href="https://github.com/CodeFalling/hexo-renderer-org" target="_blank" rel="external">hexo-renderer-org</a> with <a href="http://www.gnu.org/software/emacs/" target="_blank" rel="external">Emacs</a> 25.1.1 (<a href="http://orgmode.org" target="_blank" rel="external">Org</a> mode 8.2.10)</div>
+<div id="outline-container-sec-1-1" class="outline-3">
+<h3 id="sec-1-1">Multiple Triggers Point to a Same Job</h3>
+<div class="outline-text-3" id="text-1-1">
+<a id="more"></a>
+
+<p>
+Sometimes we want one job to be triggered by different strategies. Inevitably, we will define multiple triggers which will trigger a same job.
+But Quartzite won&apos;t let a job with same key to be triggered by multiple triggers. So we should define the job multiple times and use distinct keys to identify jobs. Surely the triggers are also defined with distinct keys. Then we can <code>(schedule s job1 trigger1)</code> and <code>(schedule s job2 trigger2)</code> and so one.
+</p>
+
+<p>
+Done!
+</p>
+</div>
+</div>
+
+<div id="outline-container-sec-1-2" class="outline-3">
+<h3 id="sec-1-2">Interval</h3>
+<div class="outline-text-3" id="text-1-2">
+<p>
+Sometimes we will define jobs that runs <code>(monday-through-friday)</code>, this call seems have defined a job that runs every workday, especially when followed by <code>(starting-daily-at (time-of-day 9 00 00))</code> to define a running time. But this is not true. We MUST use <code>(with-interval-in-days 1)</code> to explicitly define the interval between jobs are triggered. Otherwise, you will probably find the job being triggered every minute after scheduled.
+</p>
+</div>
+</div>
+
+<div id="outline-container-sec-1-3" class="outline-3">
+<h3 id="sec-1-3">Misfires</h3>
+<div class="outline-text-3" id="text-1-3">
+<p>
+If you schedule a job which will be triggered with short intervals which will probably been delayed sometimes, or the results will rely on the order or count of the jobs, or your jobs will pause and resume at some time, or for other reasons which are not uncommon, you will probably want to use misfires to tell the scheduler whether it should rerun or ignore the job it has missed.
+</p>
+
+<p>
+There are many misfire strategies provided by Quartzite. But you should keep in mind that misfires are defined by schedulers. In other words, whether a misfire strategy is available depends on the scheduler you are using, some misfire strategies cannot be run in some schedulers. For example, the <code>with-misfire-handling-instruction-next-with-remaining-count</code> strategy can only be run in the simple scheduler, i.e. <code>clojurewerkz.quartzite.schedule.simple</code>. You may find that there are some reasons that the simple scheduler defined more misfire strategies than other schedulers, and this is definitely right because the simple scheduler carrys less info than the others.
+</p>
+</div>
+</div>
+
+<div id="outline-container-sec-1-4" class="outline-3">
+<h3 id="sec-1-4">Logs</h3>
+<div class="outline-text-3" id="text-1-4">
+<p>
+When scheduling jobs, you may want to <code>(:require [taoensso.timbre :as log])</code> and then <code>log/info</code> something in your <code>defjob</code>. This will give you some information whenever the job is triggered in the log file. You can then easily debug the unwanted triggering of your job.
+</p>
+</div>
+</div>
+
+<div id="outline-container-sec-1-5" class="outline-3">
+<h3 id="sec-1-5"><code>start-now</code></h3>
+<div class="outline-text-3" id="text-1-5">
+<p>
+New users sometimes will be confused of the job not being triggered immediately by <code>trigger/start-now</code>. This is because the <code>start-now</code> here means start of scheduling of trigger, not start of triggering a job.
+</p>
+</div>
+</div>
+</div>
+
+<div style="font-size: 14px;padding: 5px;line-height: 20px;border: 1px solid;"><a href="javascript: editAtGithub();" target="_blank" rel="external">Edit Me at Github</a> - <a href="javascript: editAtGithub(true)" target="_blank" rel="external">Org Source</a> - Last Updated 2017-01-14 &#x516D; 15:09.<br>Render by <a href="https://github.com/CodeFalling/hexo-renderer-org" target="_blank" rel="external">hexo-renderer-org</a> with <a href="http://www.gnu.org/software/emacs/" target="_blank" rel="external">Emacs</a> 25.1.1 (<a href="http://orgmode.org" target="_blank" rel="external">Org</a> mode 8.2.10)</div>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://cmal.github.io/2016/11/07/emacs/fboundp/" data-id="cixwwb3vh0009nrs6nhgayenc" class="article-share-link">Share</a>
+      <a data-url="http://cmal.github.io/2016/11/06/clojure/quartzite-pitfalls/" data-id="cixwwb3v70003nrs6ikvnt3jw" class="article-share-link">Share</a>
       
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Emacs/">Emacs</a></li></ul>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ClojureLibs/">ClojureLibs</a></li></ul>
 
     </footer>
   </div>
@@ -159,19 +209,19 @@ Look at the example below:
     
 <nav id="article-nav">
   
-    <a href="/2016/11/07/emacs/closure/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2016/11/06/clojure/lambda-vs-literal-fn/" id="article-nav-newer" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Newer</strong>
       <div class="article-nav-title">
         
-          Closure in Elisp, Lexical Binding After Emacs 24.1
+          Differences Between Lambda functions and literal functions
         
       </div>
     </a>
   
   
-    <a href="/2016/11/06/clojure/lambda-vs-literal-fn/" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="/2016/11/06/clojure/destructuring-assignment/" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Older</strong>
-      <div class="article-nav-title">Differences Between Lambda functions and literal functions</div>
+      <div class="article-nav-title">Clojure Destructuring Assignment</div>
     </a>
   
 </nav>

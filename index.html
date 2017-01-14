@@ -118,7 +118,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://cmal.github.io/2016/12/05/clojure/slack/" data-id="ciwbv7h3w0002grs6125maiwc" class="article-share-link">Share</a>
+      <a data-url="http://cmal.github.io/2016/12/05/clojure/slack/" data-id="cixwwb3vb0007nrs65ukl0afq" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ClojureScript/">ClojureScript</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Re-frame/">Re-frame</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Reagent/">Reagent</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Slack/">Slack</a></li></ul>
@@ -189,7 +189,7 @@ because of the internal storage strategy of Clojure.
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://cmal.github.io/2016/12/02/clojure/data-structures/" data-id="ciwbv7h3x0003grs6jyav4urn" class="article-share-link">Share</a>
+      <a data-url="http://cmal.github.io/2016/12/02/clojure/data-structures/" data-id="cixwwb3v50002nrs6cn8sccuq" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ClojureBasics/">ClojureBasics</a></li></ul>
@@ -201,14 +201,14 @@ because of the internal storage strategy of Clojure.
 
 
   
-    <article id="post-emacs/fboundp" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-clojure/circular-dependency" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/2016/11/07/emacs/fboundp/" class="article-date">
-  <time datetime="2016-11-07T15:25:00.000Z" itemprop="datePublished">2016-11-07</time>
+    <a href="/2016/12/02/clojure/circular-dependency/" class="article-date">
+  <time datetime="2016-12-02T02:00:00.000Z" itemprop="datePublished">2016-12-02</time>
 </a>
     
   <div class="article-category">
-    <a class="article-category-link" href="/categories/emacs/">emacs</a>
+    <a class="article-category-link" href="/categories/clojure/">clojure</a>
   </div>
 
   </div>
@@ -219,7 +219,7 @@ because of the internal storage strategy of Clojure.
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2016/11/07/emacs/fboundp/">Use ~fboundp~ to check whether a symbol bound to a function</a>
+      <a class="article-title" href="/2016/12/02/clojure/circular-dependency/">Solve Circular Denpendency in Clojure(Script)</a>
     </h1>
   
 
@@ -246,37 +246,18 @@ because of the internal storage strategy of Clojure.
 </script>
 
 <div id="outline-container-sec-1" class="outline-2">
-<h2 id="sec-1">Bind function body to a symbol</h2>
-<div class="outline-text-2" id="text-1">
-<p>
-The <code>defun</code> in Emacs will bind a symbol to a function body, whereas
-the <code>fmakeunbound</code> will unbind a symbol from the bound function body.
-</p>
-
-<p>
-The <code>foundp</code> checks whether a symbol has already bound
-to a function.
-</p>
-
-<p>
-Look at the example below:
-</p>
-<div class="org-src-container">
-
-<figure class="highlight lisp"><table><tr><td class="code"><pre><span class="line"><span class="list">(<span class="keyword">defun</span> foo <span class="list">(<span class="keyword">x</span>)</span> x)</span></span><br><span class="line"><span class="comment">;; =&gt; foo</span></span><br><span class="line"><span class="list">(<span class="keyword">fboundp</span> <span class="quoted">&apos;foo</span>)</span></span><br><span class="line"><span class="comment">;; =&gt; t</span></span><br><span class="line"><span class="list">(<span class="keyword">foo</span> <span class="number">1</span>)</span></span><br><span class="line"><span class="comment">;; =&gt; 1</span></span><br><span class="line"><span class="list">(<span class="keyword">fmakunbound</span> <span class="quoted">&apos;foo</span>)</span> <span class="comment">;; fmakunbound will unbound a symbol</span></span><br><span class="line"><span class="comment">;; =&gt; foo</span></span><br><span class="line"><span class="list">(<span class="keyword">fboundp</span> <span class="quoted">&apos;foo</span>)</span></span><br><span class="line"><span class="comment">;; =&gt; nil</span></span><br><span class="line"><span class="list">(<span class="keyword">foo</span> <span class="number">1</span>)</span> <span class="comment">;; error</span></span><br></pre></td></tr></table></figure>
-</div>
-</div>
+<h2 id="sec-1">What is circular dependency in Clojure and ClojureScript</h2>
 </div>
 
-<div style="font-size: 14px;padding: 5px;line-height: 20px;border: 1px solid;"><a href="javascript: editAtGithub();" target="_blank" rel="external">Edit Me at Github</a> - <a href="javascript: editAtGithub(true)" target="_blank" rel="external">Org Source</a> - Last Updated 2016-11-28 &#x4E00; 12:40.<br>Render by <a href="https://github.com/CodeFalling/hexo-renderer-org" target="_blank" rel="external">hexo-renderer-org</a> with <a href="http://www.gnu.org/software/emacs/" target="_blank" rel="external">Emacs</a> 25.1.1 (<a href="http://orgmode.org" target="_blank" rel="external">Org</a> mode 8.2.10)</div>
+<div style="font-size: 14px;padding: 5px;line-height: 20px;border: 1px solid;"><a href="javascript: editAtGithub();" target="_blank" rel="external">Edit Me at Github</a> - <a href="javascript: editAtGithub(true)" target="_blank" rel="external">Org Source</a> - Last Updated 2016-12-08 &#x56DB; 13:44.<br>Render by <a href="https://github.com/CodeFalling/hexo-renderer-org" target="_blank" rel="external">hexo-renderer-org</a> with <a href="http://www.gnu.org/software/emacs/" target="_blank" rel="external">Emacs</a> 25.1.1 (<a href="http://orgmode.org" target="_blank" rel="external">Org</a> mode 8.2.10)</div>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://cmal.github.io/2016/11/07/emacs/fboundp/" data-id="ciwbv7h3z0004grs6ml9henyv" class="article-share-link">Share</a>
+      <a data-url="http://cmal.github.io/2016/12/02/clojure/circular-dependency/" data-id="cixwwb3v70004nrs6xmn33t7q" class="article-share-link">Share</a>
       
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Emacs/">Emacs</a></li></ul>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ClojureBasics/">ClojureBasics</a></li></ul>
 
     </footer>
   </div>
@@ -391,7 +372,91 @@ line of `.el` files to force a lexical-binding context. e.g.
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://cmal.github.io/2016/11/07/emacs/closure/" data-id="ciwbv7h420005grs6iihn5dub" class="article-share-link">Share</a>
+      <a data-url="http://cmal.github.io/2016/11/07/emacs/closure/" data-id="cixwwb3vg0008nrs6rhmiw3kv" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Emacs/">Emacs</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-emacs/fboundp" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2016/11/07/emacs/fboundp/" class="article-date">
+  <time datetime="2016-11-07T15:25:00.000Z" itemprop="datePublished">2016-11-07</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/emacs/">emacs</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/11/07/emacs/fboundp/">Use ~fboundp~ to check whether a symbol bound to a function</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        
+
+<script>
+  function editAtGithub(isRaw){
+    var url_parts = document.location.pathname.split('/');
+    var postname = url_parts[url_parts.length - 2];
+    if(url_parts.length == 3){ // is a page(wiki about etc)
+      postname = postname + '/index.org';
+    }else{
+      postname = '_posts/' + postname + '.org';
+    }
+    var url = 'https://github.com/cmal/learning_clojure/tree/source/source/' + postname;
+    if(isRaw)
+      url = 'https://raw.githubusercontent.com/cmal/learning_clojure/source/source/' + postname;
+    window.open(url);
+  }
+</script>
+
+<div id="outline-container-sec-1" class="outline-2">
+<h2 id="sec-1">Bind function body to a symbol</h2>
+<div class="outline-text-2" id="text-1">
+<p>
+The <code>defun</code> in Emacs will bind a symbol to a function body, whereas
+the <code>fmakeunbound</code> will unbind a symbol from the bound function body.
+</p>
+
+<p>
+The <code>foundp</code> checks whether a symbol has already bound
+to a function.
+</p>
+
+<p>
+Look at the example below:
+</p>
+<div class="org-src-container">
+
+<figure class="highlight lisp"><table><tr><td class="code"><pre><span class="line"><span class="list">(<span class="keyword">defun</span> foo <span class="list">(<span class="keyword">x</span>)</span> x)</span></span><br><span class="line"><span class="comment">;; =&gt; foo</span></span><br><span class="line"><span class="list">(<span class="keyword">fboundp</span> <span class="quoted">&apos;foo</span>)</span></span><br><span class="line"><span class="comment">;; =&gt; t</span></span><br><span class="line"><span class="list">(<span class="keyword">foo</span> <span class="number">1</span>)</span></span><br><span class="line"><span class="comment">;; =&gt; 1</span></span><br><span class="line"><span class="list">(<span class="keyword">fmakunbound</span> <span class="quoted">&apos;foo</span>)</span> <span class="comment">;; fmakunbound will unbound a symbol</span></span><br><span class="line"><span class="comment">;; =&gt; foo</span></span><br><span class="line"><span class="list">(<span class="keyword">fboundp</span> <span class="quoted">&apos;foo</span>)</span></span><br><span class="line"><span class="comment">;; =&gt; nil</span></span><br><span class="line"><span class="list">(<span class="keyword">foo</span> <span class="number">1</span>)</span> <span class="comment">;; error</span></span><br></pre></td></tr></table></figure>
+</div>
+</div>
+</div>
+
+<div style="font-size: 14px;padding: 5px;line-height: 20px;border: 1px solid;"><a href="javascript: editAtGithub();" target="_blank" rel="external">Edit Me at Github</a> - <a href="javascript: editAtGithub(true)" target="_blank" rel="external">Org Source</a> - Last Updated 2016-11-28 &#x4E00; 12:40.<br>Render by <a href="https://github.com/CodeFalling/hexo-renderer-org" target="_blank" rel="external">hexo-renderer-org</a> with <a href="http://www.gnu.org/software/emacs/" target="_blank" rel="external">Emacs</a> 25.1.1 (<a href="http://orgmode.org" target="_blank" rel="external">Org</a> mode 8.2.10)</div>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://cmal.github.io/2016/11/07/emacs/fboundp/" data-id="cixwwb3vh0009nrs6nhgayenc" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Emacs/">Emacs</a></li></ul>
@@ -474,10 +539,91 @@ So <code>read-string</code> can be applied to literal functions.
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://cmal.github.io/2016/11/06/clojure/lambda-vs-literal-fn/" data-id="ciwbv7h450006grs6o0amh81e" class="article-share-link">Share</a>
+      <a data-url="http://cmal.github.io/2016/11/06/clojure/lambda-vs-literal-fn/" data-id="cixwwb3va0006nrs604dut3p6" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ClojureBasics/">ClojureBasics</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-clojure/quartzite-pitfalls" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2016/11/06/clojure/quartzite-pitfalls/" class="article-date">
+  <time datetime="2016-11-06T14:00:00.000Z" itemprop="datePublished">2016-11-06</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/clojure/">clojure</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/11/06/clojure/quartzite-pitfalls/">Common Pitfalls of Quartzite</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <script>
+  function editAtGithub(isRaw){
+    var url_parts = document.location.pathname.split('/');
+    var postname = url_parts[url_parts.length - 2];
+    if(url_parts.length == 3){ // is a page(wiki about etc)
+      postname = postname + '/index.org';
+    }else{
+      postname = '_posts/' + postname + '.org';
+    }
+    var url = 'https://github.com/cmal/learning_clojure/tree/source/source/' + postname;
+    if(isRaw)
+      url = 'https://raw.githubusercontent.com/cmal/learning_clojure/source/source/' + postname;
+    window.open(url);
+  }
+</script>
+
+<div id="outline-container-sec-1" class="outline-2">
+<h2 id="sec-1">Quartzite</h2>
+<div class="outline-text-2" id="text-1">
+<p>
+When using Quartzite to scheduling your jobs, first you should read its <a href="http://clojurequartz.info/">docs</a>.
+</p>
+
+<p>
+However, there are things that doesn&apos;t clearly described. Here we will talk some of the things which are useful but not covered by the docs.
+</p>
+
+<p>
+In Quartzite, we define <code>jobs</code> that would be <code>triggered</code> on a defined <code>scheduler</code>. So we define described jobs and triggers in some scheduler to arrange them.
+</p>
+</div>
+
+<div id="outline-container-sec-1-1" class="outline-3">
+<h3 id="sec-1-1">Multiple Triggers Point to a Same Job</h3>
+<div class="outline-text-3" id="text-1-1">
+        
+          <p class="article-more-link">
+            <a href="/2016/11/06/clojure/quartzite-pitfalls/#more">Read More</a>
+          </p>
+        
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://cmal.github.io/2016/11/06/clojure/quartzite-pitfalls/" data-id="cixwwb3v70003nrs6ikvnt3jw" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ClojureLibs/">ClojureLibs</a></li></ul>
 
     </footer>
   </div>
@@ -551,7 +697,7 @@ A simple example of Clojure&apos;s <code>let</code> assignment:
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://cmal.github.io/2016/11/06/clojure/destructuring-assignment/" data-id="ciwbv7h470007grs6a3zf69bp" class="article-share-link">Share</a>
+      <a data-url="http://cmal.github.io/2016/11/06/clojure/destructuring-assignment/" data-id="cixwwb3v80005nrs600kr7hmz" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ClojureBasics/">ClojureBasics</a></li></ul>
@@ -582,7 +728,7 @@ A simple example of Clojure&apos;s <code>let</code> assignment:
   <div class="widget-wrap">
     <h3 class="widget-title">Tags</h3>
     <div class="widget">
-      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/ClojureBasics/">ClojureBasics</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ClojureScript/">ClojureScript</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Emacs/">Emacs</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Re-frame/">Re-frame</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Reagent/">Reagent</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Slack/">Slack</a></li></ul>
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/ClojureBasics/">ClojureBasics</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ClojureLibs/">ClojureLibs</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ClojureScript/">ClojureScript</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Emacs/">Emacs</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Re-frame/">Re-frame</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Reagent/">Reagent</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Slack/">Slack</a></li></ul>
     </div>
   </div>
 
@@ -592,7 +738,7 @@ A simple example of Clojure&apos;s <code>let</code> assignment:
   <div class="widget-wrap">
     <h3 class="widget-title">Tag Cloud</h3>
     <div class="widget tagcloud">
-      <a href="/tags/ClojureBasics/" style="font-size: 20px;">ClojureBasics</a> <a href="/tags/ClojureScript/" style="font-size: 10px;">ClojureScript</a> <a href="/tags/Emacs/" style="font-size: 15px;">Emacs</a> <a href="/tags/Re-frame/" style="font-size: 10px;">Re-frame</a> <a href="/tags/Reagent/" style="font-size: 10px;">Reagent</a> <a href="/tags/Slack/" style="font-size: 10px;">Slack</a>
+      <a href="/tags/ClojureBasics/" style="font-size: 20px;">ClojureBasics</a> <a href="/tags/ClojureLibs/" style="font-size: 10px;">ClojureLibs</a> <a href="/tags/ClojureScript/" style="font-size: 10px;">ClojureScript</a> <a href="/tags/Emacs/" style="font-size: 15px;">Emacs</a> <a href="/tags/Re-frame/" style="font-size: 10px;">Re-frame</a> <a href="/tags/Reagent/" style="font-size: 10px;">Reagent</a> <a href="/tags/Slack/" style="font-size: 10px;">Slack</a>
     </div>
   </div>
 
@@ -622,7 +768,7 @@ A simple example of Clojure&apos;s <code>let</code> assignment:
           </li>
         
           <li>
-            <a href="/2016/11/07/emacs/fboundp/">Use ~fboundp~ to check whether a symbol bound to a function</a>
+            <a href="/2016/12/02/clojure/circular-dependency/">Solve Circular Denpendency in Clojure(Script)</a>
           </li>
         
           <li>
@@ -630,7 +776,7 @@ A simple example of Clojure&apos;s <code>let</code> assignment:
           </li>
         
           <li>
-            <a href="/2016/11/06/clojure/lambda-vs-literal-fn/">Differences Between Lambda functions and literal functions</a>
+            <a href="/2016/11/07/emacs/fboundp/">Use ~fboundp~ to check whether a symbol bound to a function</a>
           </li>
         
       </ul>
@@ -645,7 +791,7 @@ A simple example of Clojure&apos;s <code>let</code> assignment:
   
   <div class="outer">
     <div id="footer-info" class="inner">
-      &copy; 2016 Yu Zhao 赵宇<br>
+      &copy; 2017 Yu Zhao 赵宇<br>
       Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
     </div>
   </div>
